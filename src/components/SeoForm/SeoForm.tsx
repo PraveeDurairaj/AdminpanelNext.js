@@ -9,7 +9,7 @@ const SeoForm = () => {
     <div className='p-4'>
       <h2 className='mb-5 text-[24px] font-[500]'>Manage SEO</h2>
       <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
-        {/* {data ?
+        {data ?
           <>
             <Input
               id="name"
@@ -39,7 +39,7 @@ const SeoForm = () => {
               readOnly
             />
           </>
-          : */}
+          :
           <>
             {[1, 2, 3]?.map((data) => {
               return (
@@ -50,7 +50,7 @@ const SeoForm = () => {
               )
             })}
           </>
-        {/* } */}
+         }
       </div>
     </div>
   )
