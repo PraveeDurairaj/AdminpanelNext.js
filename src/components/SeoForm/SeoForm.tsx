@@ -1,10 +1,10 @@
 import React from 'react';
-import { getData } from '@/hook/getData';
+import { useGetData } from '@/hook/getData';
 import { Input } from '../ui/input';
 import { Skeleton } from '../ui/skeleton';
 
 const SeoForm = () => {
-  const { data } = getData('KgLZiVEA1X1JFFf3Bl6h', 'site data')
+  const { data } = useGetData('KgLZiVEA1X1JFFf3Bl6h', 'site data')
   return (
     <div className='p-4'>
       <h2 className='mb-5 text-[24px] font-[500]'>Manage SEO</h2>

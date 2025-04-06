@@ -4,7 +4,7 @@ import { getDoc, doc} from "firebase/firestore";
 import { SeoData } from "@/helper/type";
 
 
-export const getData = (id: string, fbcollection: string) => {
+export const useGetData = (id: string, fbcollection: string) => {
     const [data, setData] = useState<SeoData | null>(null)
 
     const fetchData = async (id: string): Promise<void> => {
