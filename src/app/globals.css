@@ -46,14 +46,8 @@
 :root {
   --side-bar-primary:#02030c;
   --side-bar-foreground:#FFF;
-
+  --input-border:#e2e2e2;
+  --input-border-focus:#212121;
+  --sleleton-bg:#f4f4f5;
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}

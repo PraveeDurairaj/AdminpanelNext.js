@@ -39,7 +39,7 @@ const SideMenu = () => {
     ]
  const active = "shadow-[0px_3px_14px_2px_#0a0af263]"
     return (
-        <div className={cn('py-[10px] px-[8px] bg-[var(--side-bar-primary)]  h-screen fixed left-0 top-0 transition-all duration-500 ease-in-out', open ? 'w-[250px]' : 'w-[60px]')}>
+        <div className={cn('py-[10px] px-[8px] bg-[var(--side-bar-primary)]  h-screen  transition-all duration-500 ease-in-out', open ? 'w-[250px]' : 'w-[60px]')}>
             <header className='flex items-center justify-between gap-1.5 mb-6 h-[36px]'>
                 <div className='flex items-center gap-2'>
                     <div className={cn('w-[36px] h-[36px] bg-white text-black rounded-full flex items-center justify-center shrink-0 transition-all duration-500', !open && 'hidden opacity-0')}>P</div>

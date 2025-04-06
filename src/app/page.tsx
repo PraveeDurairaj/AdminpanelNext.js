@@ -1,18 +1,15 @@
 'use client'
+import SeoForm from '@/components/SeoForm/SeoForm';
 import SideMenu from '@/components/SideMenu/SideMenu';
-// hook
-// import { useGetDocs } from '@/hook/useFirebaseCURD';
-// import { useEffect } from 'react';
 
-export default function Home() {
-  // const {getBlogData,blog} = useGetDocs('site data')
-  // useEffect(()=>{
-  //   getBlogData('KgLZiVEA1X1JFFf3Bl6h')
-  // },[blog])
+export default function Home() { 
 
   return (
-  <>
+  <div className='flex items-start' >
   <SideMenu/>
-  </>
+  <div className='grow'>
+  <SeoForm/>
+  </div>
+  </div>
   );
 }
