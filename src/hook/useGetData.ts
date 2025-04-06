@@ -23,6 +23,6 @@ export const useGetData = (id: string, fbcollection: string) => {
           console.error("Error fetching document:", error);
         }
       };
-      useEffect(()=>{fetchData(id)},[data])
+      useEffect(()=>{fetchData(id)},[])
       return{data,fetchData}
     }

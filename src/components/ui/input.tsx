@@ -2,11 +2,10 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-function Input({ className, label, type, ...props }: React.ComponentProps<"input">) {
+function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   const input = 'border-[var(--input-border)] rounded-[4px] focus:border-[var(--input-border-focus)] h-[50px]'
   return (
-    <div>
-      {label && <label className="mb-1.5 inline-block text-[16px] font-[500]">{label}</label>}
+    <>
       <input
         type={type}
         data-slot="input"
@@ -18,7 +17,7 @@ function Input({ className, label, type, ...props }: React.ComponentProps<"input
         )}
         {...props}
       />
-    </div>
+    </>
 
   )
 }
