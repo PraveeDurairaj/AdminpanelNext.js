@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetData } from '@/hook/getData';
+import { useGetData } from '@/hook/useGetData';
 import { Input } from '../ui/input';
 import { Skeleton } from '../ui/skeleton';
 
