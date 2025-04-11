@@ -3,11 +3,17 @@ import { useGetData } from '@/hook/useGetData';
 import { Input } from '../ui/input';
 import { Skeleton } from '../ui/skeleton';
 import { InputData } from '@/helper/type';
-import { title } from 'process';
 
 const SeoForm = () => {
   const { data } = useGetData('KgLZiVEA1X1JFFf3Bl6h', 'site data');
   // const [isEdit,setEdit] = useState(false);
+  const [seoData , setSeoData] = useState<any | null>(null);
+  useEffect(()=>{
+    if(data){
+      setSeoData(data)
+    }
+  },[data])
+
 
   const InputGroup = ({ label, id, type, value, placeholder, readOnly }:InputData) => {
     return (
@@ -34,7 +40,7 @@ const SeoForm = () => {
             <InputGroup
              id="name"
              type="text"
-             value={data?.metaTitle}
+             value={seoData?.metaTitle}
              // onChange={(e) => setName(e.target.value)}
              placeholder="Enter meta title"
              readOnly
@@ -43,7 +49,7 @@ const SeoForm = () => {
              <InputGroup
              id="name"
              type="text"
-             value={data?.MetaDescription}
+             value={seoData?.MetaDescription}
              // onChange={(e) => setName(e.target.value)}
              placeholder="Enter meta description"
              readOnly
@@ -52,7 +58,7 @@ const SeoForm = () => {
              <InputGroup
              id="name"
              type="text"
-             value={data?.MetaKeywords}
+             value={seoData?.MetaKeywords}
              // onChange={(e) => setName(e.target.value)}
              placeholder="Enter meta keywords"
              readOnly
