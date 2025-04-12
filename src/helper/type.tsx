@@ -1,7 +1,8 @@
 export type SeoData = {
     metaTitle:string,
     MetaDescription:string,
-    MetaKeywords:string
+    MetaKeywords:string,
+    ogImage:string,
 }
 export type InputData = {
     label?: string,
@@ -9,5 +10,7 @@ export type InputData = {
     type?: string,
     value?: string,
     placeholder?: string,
-    readOnly?:boolean
+    readOnly?:boolean,
+    name?:string,
+    onChangeFunction?:(e:React.ChangeEvent<HTMLInputElement>)=>void,
   }

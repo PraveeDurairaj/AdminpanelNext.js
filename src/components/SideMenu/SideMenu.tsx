@@ -6,6 +6,8 @@ import arrow from '../../../public/arrow.png';
 import seo from '../../../public/seo.png';
 import blog from '../../../public/blog.png';
 import enquiry from '../../../public/enquiry.png';
+import logout from '../../../public/logout.png';
+import menu from '../../../public/menuIcon.png';
 
 const SideMenu = () => {
     const [open, setOpen] = useState<boolean>(true)
@@ -41,9 +43,9 @@ const SideMenu = () => {
     const active = "shadow-[0px_3px_14px_2px_#0a0af263]"
     return (
         <>
-            <header className='md:hidden flex p-2.5 justify-between fixed w-full h-[60px] text-white bg-[var(--side-bar-primary)]'>
-                <span onClick={() => { setMobileOpen(!mobileOpen) }}>open</span>
-                <span>logout</span>
+            <header className='md:hidden flex p-2.5 justify-between items-center fixed w-full h-[60px] text-white bg-[var(--side-bar-primary)]'>
+                <Image src={menu} className='w-[30px] h-[30px] object-contain'  alt='menu icon' onClick={() => { setMobileOpen(!mobileOpen) }}></Image>
+                <Image src={logout} className='w-[30px] h-[30px] object-contain'  alt='logout icon'></Image>
             </header>
             <aside className={cn('py-[10px] px-[8px] bg-[var(--side-bar-primary)]  h-screen fixed md:relative transition-all duration-500 ease-in-out md:left-0 z-10 w-[250px]', open ? 'w-[250px]' : 'md:w-[60px]', mobileOpen ? 'left-[0]' : '-left-[100%]')}>
                 <header className='flex items-center justify-between gap-1.5 mb-6 h-[36px]'>
