@@ -1,15 +1,13 @@
 'use client'
 import SeoForm from '@/components/SeoForm/SeoForm';
-import SideMenu from '@/components/SideMenu/SideMenu';
+import SideMenuLayout from './layouts/SideMenuLayout';
 
-export default function Home() { 
+export default function Home() {
 
   return (
-  <div className='flex items-start' >
-  <SideMenu/>
-  <div className='grow'>
-  <SeoForm/>
-  </div>
-  </div>
+    <SideMenuLayout>
+      <SeoForm />
+    </SideMenuLayout>
+
   );
 }

@@ -7,7 +7,7 @@ import { InputData } from '@/helper/type';
 const SeoForm = () => {
   const { data } = useGetData('KgLZiVEA1X1JFFf3Bl6h', 'site data');
   // const [isEdit,setEdit] = useState(false);
-  const [seoData , setSeoData] = useState<any | null>(null);
+  const [seoData , setSeoData] = useState<any>(null);
   useEffect(()=>{
     if(data){
       setSeoData(data)
@@ -34,7 +34,7 @@ const SeoForm = () => {
   return (
     <div className='p-4'>
       <h2 className='mb-5 text-[24px] font-[500]'>Manage SEO</h2>
-      <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
         {data ?
           <>
             <InputGroup
