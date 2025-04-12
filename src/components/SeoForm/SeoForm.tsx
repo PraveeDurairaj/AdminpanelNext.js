@@ -3,11 +3,12 @@ import { useGetData } from '@/hook/useGetData';
 import { Input } from '../ui/input';
 import { Skeleton } from '../ui/skeleton';
 import { InputData } from '@/helper/type';
+import { SeoData } from '@/helper/type';
 
 const SeoForm = () => {
   const { data } = useGetData('KgLZiVEA1X1JFFf3Bl6h', 'site data');
   // const [isEdit,setEdit] = useState(false);
-  const [seoData , setSeoData] = useState<any>(null);
+  const [seoData , setSeoData] = useState<SeoData>();
   useEffect(()=>{
     if(data){
       setSeoData(data)
