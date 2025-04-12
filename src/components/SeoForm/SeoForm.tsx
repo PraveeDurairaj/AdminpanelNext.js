@@ -1,5 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
 import { useGetData } from '@/hook/useGetData';
 import { Input } from '../ui/input';
 import { Skeleton } from '../ui/skeleton';
