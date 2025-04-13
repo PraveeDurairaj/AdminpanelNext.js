@@ -13,7 +13,7 @@
   --border-secondray:#e2e2e2;
   --input-border:var(--border-secondray);
   --input-border-focus:#212121;
-  --sleleton-bg:#e1e1f1;
+  --sleleton-bg:#ebebf1;
   --bg-primary:#000;
   --bg-secondray:#f5f7fa;
   --white-text-foreground:#fff;
@@ -21,4 +21,7 @@
 
 .active-filter {
   filter: brightness(0) saturate(100%) invert(60%) sepia(64%) saturate(7362%) hue-rotate(212deg) brightness(101%) contrast(101%);
+}
+body{
+  background: var(--bg-secondray);
 }
