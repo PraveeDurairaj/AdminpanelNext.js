@@ -57,9 +57,11 @@ const SeoForm = () => {
   const handleSubmit = () => {
     updateData('KgLZiVEA1X1JFFf3Bl6h', seoData)
     setEdit(false)
-    update &&  toast("SEO form submitted sucessfully!", {
-      description: "Your data has been saved and processed",
-    })
+    if (update) {
+      toast("SEO form submitted successfully!", {
+        description: "Your data has been saved and processed",
+      });
+    }
   }
   const handleCancel = () => {
     setEdit(false)

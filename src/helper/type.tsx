@@ -21,7 +21,7 @@ export type InputData = {
   export type modalPopup ={
     title:string,
     buttonText?:string,
-    linkText?:String,
+    linkText?:string,
     content:ReactNode
 
   }
