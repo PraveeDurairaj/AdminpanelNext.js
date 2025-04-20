@@ -31,9 +31,9 @@ const InputGroup = ({ label, id, type, value, placeholder, readOnly, name, label
 }
 
 const SeoForm = () => {
-  const { data } = useGetData('KgLZiVEA1X1JFFf3Bl6h', 'site data');
+  const { data,fetchData } = useGetData('site data');
   const [isEdit, setEdit] = useState<boolean>(false);
-  const { update, updateData } = useUpdateData('site data')
+  const { update, setUpdate, updateData } = useUpdateData('site data')
   const [seoData, setSeoData] = useState<SeoData>({
     metaTitle: '',
     MetaDescription: '',
@@ -41,9 +41,22 @@ const SeoForm = () => {
     ogImage: ''
   });
 
+  const [loading, setloading] = useState<boolean>(true)
+
   useEffect(() => {
-    if (data) setSeoData(data)
-  }, [data])
+    if (data) {
+      setSeoData(data)
+    } else {
+      fetchData('KgLZiVEA1X1JFFf3Bl6h')
+    }
+    if (update) {
+      toast("SEO form submitted successfully!", {
+        description: "Your data has been saved and processed",
+      });
+      setUpdate(false)
+      fetchData('KgLZiVEA1X1JFFf3Bl6h')
+    }
+  }, [data, update])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -57,99 +70,92 @@ const SeoForm = () => {
   const handleSubmit = () => {
     updateData('KgLZiVEA1X1JFFf3Bl6h', seoData)
     setEdit(false)
-    if (update || !update) {
-      toast("SEO form submitted successfully!", {
-        description: "Your data has been saved and processed",
-      });
-    }
+  }
+  
+  const handleCancel = () => {
+    setEdit(false)
+    if (data) setSeoData(data)
   }
 
-const handleCancel = () => {
-  setEdit(false)
-  if (data) setSeoData(data)
-}
+  const renderForm = () => {
+    return (
+      <>
+        <InputGroup
+          id="metaTitle"
+          type="text"
+          name='metaTitle'
+          value={seoData?.metaTitle}
+          onChangeFunction={handleChange}
+          placeholder="Enter meta title"
+          label='Meta title'
+        />
+        <InputGroup
+          id="MetaDescription"
+          type="text"
+          value={seoData?.MetaDescription}
+          name='MetaDescription'
+          onChangeFunction={handleChange}
+          placeholder="Enter meta description"
+          label='Meta description'
+        />
+        <InputGroup
+          id="MetaKeywords"
+          type="text"
+          name='MetaKeywords'
+          value={seoData?.MetaKeywords}
+          onChangeFunction={handleChange}
+          placeholder="Enter meta keywords"
+          label='Meta keyword'
+        />
+        <InputGroup
+          id="ogImage"
+          type="text"
+          name='ogImage'
+          value={seoData?.ogImage}
+          onChangeFunction={handleChange}
+          placeholder="Enter ogImage url"
+          label='Og Image'
+          labelItem={
+            <ModalPopup
+              title='OgImage preview'
+              buttonText={'Preview'}
+              content={<div className={'w-full h-[200px] rounded-[10px] bg-cover bg-center'} style={{ backgroundImage: `url("${seoData?.ogImage}")` }} ></div>} />
+          }
+        />
+      </>
+    )
+  }
+  const renderSkeleton = () => {
+    return (
+      [1, 2, 3, 4]?.map((data) => {
+        return (
+          <div key={data}>
+            <Skeleton className='w-[150px] h-[20px] rounded-[4px] mb-1.5' />
+            <Skeleton className='w-full h-[50px] rounded-[4px]' />
+          </div>
+        )
+      })
+    )
+  }
 
-const renderForm = () => {
+
   return (
-    <>
-      <InputGroup
-        id="metaTitle"
-        type="text"
-        name='metaTitle'
-        value={seoData?.metaTitle}
-        onChangeFunction={handleChange}
-        placeholder="Enter meta title"
-        label='Meta title'
-      />
-      <InputGroup
-        id="MetaDescription"
-        type="text"
-        value={seoData?.MetaDescription}
-        name='MetaDescription'
-        onChangeFunction={handleChange}
-        placeholder="Enter meta description"
-        label='Meta description'
-      />
-      <InputGroup
-        id="MetaKeywords"
-        type="text"
-        name='MetaKeywords'
-        value={seoData?.MetaKeywords}
-        onChangeFunction={handleChange}
-        placeholder="Enter meta keywords"
-        label='Meta keyword'
-      />
-      <InputGroup
-        id="ogImage"
-        type="text"
-        name='ogImage'
-        value={seoData?.ogImage}
-        onChangeFunction={handleChange}
-        placeholder="Enter ogImage url"
-        label='Og Image'
-        labelItem={
-          <ModalPopup
-            title='OgImage preview'
-            buttonText={'Preview'}
-            content={<div className={'w-full h-[200px] rounded-[10px] bg-[100% 100%] bg-center'} style={{ backgroundImage: `url("${seoData?.ogImage}")` }} ></div>} />
-        }
-      />
-    </>
-  )
-}
-const renderSkeleton = () => {
-  return (
-    [1, 2, 3, 4]?.map((data) => {
-      return (
-        <div key={data}>
-          <Skeleton className='w-[150px] h-[20px] rounded-[4px] mb-1.5' />
-          <Skeleton className='w-full h-[50px] rounded-[4px]' />
-        </div>
-      )
-    })
-  )
-}
-
-
-return (
-  <div className='p-4'>
-    <h2 className='mb-5 text-[24px] font-[500]'>Manage SEO</h2>
-    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-      {data ? renderForm() : renderSkeleton()}
-    </div>
-    {isEdit && <div className='flex justify-end gap-3.5 pt-3 border-t border-[var(--border-primary)] mt-6'>
-      <Button variant={'outline'} onClick={handleCancel}>cancel</Button>
-      <Button onClick={handleSubmit}>save</Button>
-    </div>}
-    {
-      !data && <div className='flex justify-end gap-3.5 mt-6' >
-        <Skeleton className='w-[120px] h-[40px] rounded-[4px]' />
-        <Skeleton className='w-[120px] h-[40px] rounded-[4px]' />
+    <div>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+        {data ? renderForm() : renderSkeleton()}
       </div>
-    }
-
-  </div>
-)
+      {isEdit && <div className='flex justify-end gap-3.5 pt-3 border-t border-[var(--border-primary)] mt-6'>
+        <Button variant={'outline'} onClick={handleCancel}>cancel</Button>
+        <Button onClick={handleSubmit}>save</Button>
+      </div>}
+      {
+      !data && <div className='flex justify-end gap-3.5 mt-6' >
+          <Skeleton className='w-[120px] h-[40px] rounded-[4px]' />
+          <Skeleton className='w-[120px] h-[40px] rounded-[4px]' />
+        </div>
+      }
+    </div>
+  )
 }
 
 export default SeoForm

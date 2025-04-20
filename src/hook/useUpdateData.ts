@@ -15,5 +15,5 @@ export const useUpdateData = ( fbcollection: string) => {
             console.error("Error update document:", error);
         }
     }
-    return {update, updateData }
+    return {update, updateData,setUpdate }
 }

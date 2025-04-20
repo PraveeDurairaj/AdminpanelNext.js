@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react"
+import {useState } from "react"
 import { db } from "@/firebase/config";
 import { getDoc, doc } from "firebase/firestore";
 import { SeoData } from "@/helper/type";
 
 
-export const useGetData = (id: string, fbcollection: string) => {
+export const useGetData = (fbcollection: string) => {
   const [data, setData] = useState<SeoData | null>(null)
 
   const fetchData = async (id: string): Promise<void> => {
@@ -22,6 +22,5 @@ export const useGetData = (id: string, fbcollection: string) => {
       console.error("Error fetching document:", error);
     }
   };
-  useEffect(() => { fetchData(id) }, [])
   return { data, fetchData }
 }

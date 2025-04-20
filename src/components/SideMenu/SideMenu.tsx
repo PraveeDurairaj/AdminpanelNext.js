@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { cn } from "@/lib/utils";
 import arrow from '../../../public/arrow.png';
 import seo from '../../../public/seo.png';
@@ -12,31 +13,32 @@ import menu from '../../../public/menuIcon.png';
 const SideMenu = () => {
     const [open, setOpen] = useState<boolean>(true)
     const [mobileOpen, setMobileOpen] = useState<boolean>(false)
+    const pathName = usePathname();
+    console.log(pathName)
     const sideMenusData = [
         {
             id: 1,
-            text: 'SEO Settings',
+            text: 'Dashboard',
             icon: seo,
-            active: '',
-            url: true
+            url: '/'
         },
         {
             id: 2,
-            text: 'Manage Blog',
-            icon: blog,
-            active: '',
+            text: 'Manage Enquiry',
+            icon: enquiry,
+            url:'/manageEnquiry'
         },
         {
             id: 3,
-            text: 'Manage Enquiry',
-            icon: enquiry,
-            active: ''
+            text: 'SEO Settings',
+            icon: seo,
+             url: '/seoSettings'
         },
         {
             id: 4,
-            text: 'SEO Settings',
-            icon: seo,
-            active: ''
+            text: 'Manage Blog',
+            icon: blog,
+            url:'/'
         },
 
     ]
@@ -64,10 +66,10 @@ const SideMenu = () => {
                     {
                         sideMenusData?.map((data) => {
                             return (
-                                <div key={data?.id} className={cn('flex gap-2 items-center p-[6px] hover:bg-[#eff2f6]  rounded-[6px]')}>
-                                    <Image src={data?.icon} alt='arrow icon' className={cn('w-[30px] h-[30px] object-contain', data?.url ? 'active-filter ' : filterBlack)}></Image>
-                                    <p className={cn('text-[var(--side-bar-foreground)] text-[14px] transition-all opacity-100 whitespace-nowrap duration-500 ', !open && 'md:hidden md:opacity-0', data?.url && active)}>{data?.text}</p>
-                                </div>
+                                <a href={data?.url} key={data?.id} className={cn('flex gap-2 items-center p-[6px] hover:bg-[#eff2f6]  rounded-[6px]')}>
+                                    <Image src={data?.icon} alt='arrow icon' className={cn('w-[30px] h-[30px] object-contain', data?.url == pathName ? 'active-filter ' : filterBlack)}></Image>
+                                    <p className={cn('text-[var(--side-bar-foreground)] text-[14px] transition-all opacity-100 whitespace-nowrap duration-500 ', !open && 'md:hidden md:opacity-0', data?.url == pathName && active)}>{data?.text}</p>
+                                </a>
                             )
                         })
                     }
