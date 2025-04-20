@@ -41,8 +41,6 @@ const SeoForm = () => {
     ogImage: ''
   });
 
-  const [loading, setloading] = useState<boolean>(true)
-
   useEffect(() => {
     if (data) {
       setSeoData(data)
