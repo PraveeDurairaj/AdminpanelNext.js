@@ -31,7 +31,7 @@ export type InputData = {
   type manageEnquiryData = {
     name?:string,
     mobileNo?:string,
-    message?:String
+    message?:string
   }
 
   export type tableData = {
