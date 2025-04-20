@@ -23,5 +23,18 @@ export type InputData = {
     buttonText?:string,
     linkText?:string,
     content:ReactNode
+  }
 
+  type tableInnerColumn = {
+    title:string,style:string
+  }
+  type manageEnquiryData = {
+    name?:string,
+    mobileNo?:string,
+    message?:String
+  }
+
+  export type tableData = {
+    tableColumns: tableInnerColumn[],
+    tableRowData?: manageEnquiryData[]
   }

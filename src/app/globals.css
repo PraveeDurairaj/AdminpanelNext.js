@@ -6,9 +6,10 @@
 
 
 :root {
+  --theme-bg:#3874ff;
   --side-bar-primary:#fff;
   --side-bar-foreground:#212121;
-  --side-bar-nav-active:#3874ff;
+  --side-bar-nav-active:var(--theme-bg);
   --border-primary:#cbd0dd;
   --border-secondray:#e2e2e2;
   --input-border:var(--border-secondray);
