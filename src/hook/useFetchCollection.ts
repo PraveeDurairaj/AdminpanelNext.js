@@ -2,9 +2,10 @@
 import { useState, useEffect } from 'react';
 import { collection, onSnapshot} from 'firebase/firestore';
 import { db } from '../firebase/config';
+import { manageEnquiryData } from '@/helper/type';
 
 export const useFetchCollection = (fbCollection:string) => {
-    const [documents, setDocuments] = useState<any>();
+    const [documents, setDocuments] = useState<manageEnquiryData[]>();
 
     useEffect(() => {
         const userCollection = collection(db, fbCollection); // get collection from firestore

@@ -1,5 +1,6 @@
 'use client'
 import CommonTable from '@/components/Table/Table';
+import { manageEnquiryData } from '@/helper/type';
 import { useFetchCollection } from '@/hook/useFetchCollection';
 import SideMenuLayout from '@/layouts/SideMenuLayout';
 import { useEffect, useState } from 'react';
@@ -20,7 +21,7 @@ const tableHeadingsData = [
 ]
 
 export default function Home() {
-  const [tbody, setTBoday] = useState<[]>()
+  const [tbody, setTBoday] = useState<manageEnquiryData[]>()
   const documents = useFetchCollection('manageEnquiry')
   useEffect(() => {
     if (documents) setTBoday(documents)

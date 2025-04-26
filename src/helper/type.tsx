@@ -28,7 +28,8 @@ export type InputData = {
   type tableInnerColumn = {
     title:string,style:string
   }
-  type manageEnquiryData = {
+  export type manageEnquiryData = {
+    id?:string,
     name?:string,
     mobileNo?:string,
     message?:string
