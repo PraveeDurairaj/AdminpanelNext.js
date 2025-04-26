@@ -20,7 +20,7 @@ const tableHeadingsData = [
 ]
 
 export default function Home() {
-  const [tbody, setTBoday] = useState<any>()
+  const [tbody, setTBoday] = useState<[]>()
   const documents = useFetchCollection('manageEnquiry')
   useEffect(() => {
     if (documents) setTBoday(documents)
