@@ -9,10 +9,12 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { tableData } from '@/helper/type';
+import { TableSkeleton } from '../Skeletons/skeleton';
 
 const CommonTable = ({ tableColumns, tableRowData }: tableData) => {
-
+    
     return (
+        (tableRowData ? 
         <div className='rounded-[10px] w-full overflow-y-hidden overflow-x-auto'>
             <Table>
                 <TableHeader>
@@ -34,7 +36,7 @@ const CommonTable = ({ tableColumns, tableRowData }: tableData) => {
                     ))}
                 </TableBody>
             </Table>
-        </div>
+        </div> : <TableSkeleton/>)
     )
 }
 

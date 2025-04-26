@@ -14,7 +14,6 @@ const SideMenu = () => {
     const [open, setOpen] = useState<boolean>(true)
     const [mobileOpen, setMobileOpen] = useState<boolean>(false)
     const pathName = usePathname();
-    console.log(pathName)
     const sideMenusData = [
         {
             id: 1,
@@ -51,7 +50,7 @@ const SideMenu = () => {
                 <Image src={menu} className={mobileHeaderIcon} alt='menu icon' onClick={() => { setMobileOpen(!mobileOpen) }}></Image>
                 <Image src={logout} className={mobileHeaderIcon} alt='logout icon'></Image>
             </header>
-            <aside className={cn('py-[10px] border-e border-[var(--border-primary)] px-[8px] bg-[var(--side-bar-primary)]  h-screen fixed md:relative transition-all duration-500 ease-in-out md:left-0 z-[10] w-[250px]', open ? 'w-[250px]' : 'md:w-[60px]', mobileOpen ? 'left-[0]' : '-left-[100%]')}>
+            <aside className={cn('py-[10px] border-e border-[var(--border-primary)] px-[8px] bg-[var(--side-bar-primary)]  h-screen fixed md:relative transition-all duration-500 ease-in-out md:left-0 z-[10]  shrink-0', open ? 'w-[250px]' : 'md:w-[60px]', mobileOpen ? 'left-[0]' : '-left-[100%]')}>
                 <header className='flex items-center justify-between gap-1.5 mb-5 h-[36px]'>
                     <div className='flex items-center gap-2'>
                         <div className={cn('w-[36px] h-[36px] bg-black text-white rounded-full flex items-center justify-center shrink-0 transition-all duration-500', !open && 'md:hidden md:opacity-0')}>P</div>
