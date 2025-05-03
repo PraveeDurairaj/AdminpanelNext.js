@@ -4,44 +4,14 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from "@/lib/utils";
 import arrow from '../../../public/arrow.png';
-import seo from '../../../public/seo.png';
-import blog from '../../../public/blog.png';
-import enquiry from '../../../public/enquiry.png';
 import logout from '../../../public/logout.png';
 import menu from '../../../public/menuIcon.png';
+import Menus from './Menus';
 
 const SideMenu = () => {
     const [open, setOpen] = useState<boolean>(true)
     const [mobileOpen, setMobileOpen] = useState<boolean>(false)
     const pathName = usePathname();
-    const sideMenusData = [
-        {
-            id: 1,
-            text: 'Dashboard',
-            icon: seo,
-            url: '/'
-        },
-        {
-            id: 2,
-            text: 'Manage Enquiry',
-            icon: enquiry,
-            url:'/manageEnquiry'
-        },
-        {
-            id: 3,
-            text: 'SEO Settings',
-            icon: seo,
-             url: '/seoSettings'
-        },
-        {
-            id: 4,
-            text: 'Manage Blog',
-            icon: blog,
-            url:'/'
-        },
-
-    ]
-    const active = "!text-[var(--side-bar-nav-active)]";
     const filterBlack = 'filter brightness-0 saturate-100';
     const mobileHeaderIcon = 'w-[30px] h-[30px] object-contain filter brightness-0 saturate-100'
     return (
@@ -50,7 +20,7 @@ const SideMenu = () => {
                 <Image src={menu} className={mobileHeaderIcon} alt='menu icon' onClick={() => { setMobileOpen(!mobileOpen) }}></Image>
                 <Image src={logout} className={mobileHeaderIcon} alt='logout icon'></Image>
             </header>
-            <aside className={cn('py-[10px] border-e border-[var(--border-primary)] px-[8px] bg-[var(--side-bar-primary)]  h-screen fixed md:relative transition-all duration-500 ease-in-out md:left-0 z-[10]  shrink-0', open ? 'w-[250px]' : 'md:w-[60px]', mobileOpen ? 'left-[0]' : '-left-[100%]')}>
+            <aside className={cn('py-[10px] pb-[80px] border-e border-[var(--border-primary)] px-[12px] bg-[var(--side-bar-primary)]  h-screen fixed md:relative transition-all duration-500 ease-in-out md:left-0 z-[10] w-[60px] shrink-0 overflow-x-hidden', open && 'w-[250px]', mobileOpen ? 'left-[0]' : '-left-[100%]')}>
                 <header className='flex items-center justify-between gap-1.5 mb-5 h-[36px]'>
                     <div className='flex items-center gap-2'>
                         <div className={cn('w-[36px] h-[36px] bg-black text-white rounded-full flex items-center justify-center shrink-0 transition-all duration-500', !open && 'md:hidden md:opacity-0')}>P</div>
@@ -61,19 +31,8 @@ const SideMenu = () => {
                 </header>
                 <div className='border-b border-[var(--border-primary)] mb-1.5'></div>
                 {/* sidemenu body */}
-                <div className='flex flex-col gap-1.5'>
-                    {
-                        sideMenusData?.map((data) => {
-                            return (
-                                <a href={data?.url} key={data?.id} className={cn('flex gap-2 items-center p-[6px] hover:bg-[#eff2f6]  rounded-[6px]')}>
-                                    <Image src={data?.icon} alt='arrow icon' className={cn('w-[30px] h-[30px] object-contain', data?.url == pathName ? 'active-filter ' : filterBlack)}></Image>
-                                    <p className={cn('text-[var(--side-bar-foreground)] text-[14px] transition-all opacity-100 whitespace-nowrap duration-500 ', !open && 'md:hidden md:opacity-0', data?.url == pathName && active)}>{data?.text}</p>
-                                </a>
-                            )
-                        })
-                    }
-
-                </div>
+                <Menus path={pathName} openState={open}/>
+           
             </aside>
         </>
 

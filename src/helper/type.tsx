@@ -1,3 +1,4 @@
+import { Timestamp } from "firebase/firestore"
 import { ReactNode } from "react"
 
 export type SeoData = {
@@ -32,10 +33,11 @@ export type InputData = {
     id?:string,
     name?:string,
     mobileNo?:string,
-    message?:string
+    message?:string,
+    enQuiryDate?:Timestamp | undefined
   }
 
   export type tableData = {
     tableColumns: tableInnerColumn[],
-    tableRowData?: manageEnquiryData[]
+    children?: ReactNode
   }
