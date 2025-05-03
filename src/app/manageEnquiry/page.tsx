@@ -43,8 +43,7 @@ export default function Home() {
     <SideMenuLayout title={'Manage Enquiry'}>
       <CommonTable tableColumns={tableHeadingsData}>
         {tbody?.map((data, key) => { 
-          console.log(data)
-         let date = data?.enQuiryDate?.toDate()
+         const date = data?.enQuiryDate?.toDate()
          const enQuiryDate =  moment(date).format('DD-MM-YYYY')
          
           return(

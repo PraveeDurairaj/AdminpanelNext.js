@@ -32,7 +32,7 @@ const sideMenusData = [
 
 ]
 
-const Menus = ({ path, openState }: { path: string | any, openState: boolean }) => {
+const Menus = ({ path, openState }: { path: string, openState: boolean }) => {
     const active = "!text-[var(--side-bar-nav-active)]";
     const filterBlack = 'filter brightness-0 saturate-100';
     return (
