@@ -36,7 +36,7 @@ const Menus = ({ path, openState }: { path: string, openState: boolean }) => {
     const active = "!text-[var(--side-bar-nav-active)]";
     const filterBlack = 'filter brightness-0 saturate-100';
     return (
-        <div className='flex flex-col gap-1.5'>
+        <div className='flex flex-col gap-2'>
             {
                 sideMenusData?.map((data) => {
                     return (

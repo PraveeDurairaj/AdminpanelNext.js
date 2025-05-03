@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { toast } from "sonner"
+import { toast } from "sonner";
 import { Input } from '../ui/input';
 import { Skeleton } from '../ui/skeleton';
 import { Button } from '../ui/button';

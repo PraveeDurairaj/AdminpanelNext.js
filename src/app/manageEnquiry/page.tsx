@@ -1,5 +1,6 @@
 'use client'
 import CommonTable from '@/components/Table/Table';
+import { toast } from "sonner";
 import {
   TableCell,
   TableRow,
@@ -9,13 +10,14 @@ import { manageEnquiryData } from '@/helper/type';
 import { useFetchCollection } from '@/hook/useFetchCollection';
 import SideMenuLayout from '@/layouts/SideMenuLayout';
 import { useEffect, useState } from 'react';
+import { useDeleteData } from '@/hook/useDeleteData';
 
 
 const tableHeadingsData = [
   {
     title: 'Date',
     style: 'min-w-[100px]'
-  }, 
+  },
   {
     title: 'Name',
     style: 'min-w-[150px]'
@@ -27,34 +29,44 @@ const tableHeadingsData = [
   {
     title: 'Message',
     style: 'min-w-[200px]'
+  },
+  {
+    title: 'Action',
+    style: 'min-w-[120px]'
   }
 ]
 
 export default function Home() {
   const [tbody, setTBoday] = useState<manageEnquiryData[]>()
-  const documents = useFetchCollection({fbCollection:'manageEnquiry',orderData:'enQuiryDate',orderMethod:'desc'})
+  const documents = useFetchCollection({ fbCollection: 'manageEnquiry', orderData: 'enQuiryDate', orderMethod: 'desc' })
+  const { deleteState, setDeleteState, deleteData } = useDeleteData('manageEnquiry');
+
   useEffect(() => {
     if (documents) setTBoday(documents)
-  }, [documents])
-
-
+    if (deleteState) {
+      toast("Enquiry data deleted successfully!");
+      setDeleteState(false)
+    }
+  }, [documents, deleteState])
 
   return (
     <SideMenuLayout title={'Manage Enquiry'}>
       <CommonTable tableColumns={tableHeadingsData}>
-        {tbody?.map((data, key) => { 
-         const date = data?.enQuiryDate?.toDate()
-         const enQuiryDate =  moment(date).format('DD-MM-YYYY')
-         
-          return(
-          <TableRow key={key}>
-            <TableCell>{key + 1}</TableCell>
-            <TableCell>{enQuiryDate}</TableCell>
-            {data?.name && <TableCell>{data?.name}</TableCell>}
-            {data?.mobileNo && <TableCell>{data?.mobileNo}</TableCell>}
-            {data?.message && <TableCell>{data?.message}</TableCell>}
-          </TableRow>
-        )})}
+        {tbody?.map((data, key) => {
+          const date = data?.enQuiryDate?.toDate()
+          const enQuiryDate = moment(date).format('DD-MM-YYYY')
+          console.log(data)
+          return (
+            <TableRow key={key}>
+              <TableCell>{key + 1}</TableCell>
+              <TableCell>{enQuiryDate}</TableCell>
+              {data?.name && <TableCell>{data?.name}</TableCell>}
+              {data?.mobileNo && <TableCell>{data?.mobileNo}</TableCell>}
+              <TableCell>{data?.message ? data?.message : '-'}</TableCell>
+              <TableCell className='link-text' onClick={() => data?.id && deleteData(data?.id)}>delete</TableCell>
+            </TableRow>
+          )
+        })}
       </CommonTable>
     </SideMenuLayout>
 

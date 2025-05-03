@@ -23,6 +23,11 @@
 .active-filter {
   filter: brightness(0) saturate(100%) invert(60%) sepia(64%) saturate(7362%) hue-rotate(212deg) brightness(101%) contrast(101%);
 }
+.link-text{
+  color: var(--theme-bg);
+  text-decoration: underline;
+  cursor: pointer;
+}
 body{
   background: var(--bg-secondray);
 }
