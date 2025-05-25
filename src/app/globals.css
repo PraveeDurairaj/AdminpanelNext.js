@@ -18,6 +18,7 @@
   --bg-primary:#000;
   --bg-secondray:#f5f7fa;
   --white-text-foreground:#fff;
+  --gray-text-foreground:#8d8b8b;
 }
 
 .active-filter {

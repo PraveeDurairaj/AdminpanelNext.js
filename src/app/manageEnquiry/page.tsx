@@ -16,7 +16,7 @@ import { useDeleteData } from '@/hook/useDeleteData';
 const tableHeadingsData = [
   {
     title: 'Date',
-    style: 'min-w-[100px]'
+    style: 'min-w-[120px]'
   },
   {
     title: 'Name',
@@ -55,7 +55,6 @@ export default function Home() {
         {tbody?.map((data, key) => {
           const date = data?.enQuiryDate?.toDate()
           const enQuiryDate = moment(date).format('DD-MM-YYYY')
-          console.log(data)
           return (
             <TableRow key={key}>
               <TableCell>{key + 1}</TableCell>
