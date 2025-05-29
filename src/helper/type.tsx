@@ -1,4 +1,5 @@
 import { Timestamp } from "firebase/firestore"
+import { StaticImageData } from "next/image"
 import { ReactNode } from "react"
 
 export type SeoData = {
@@ -36,8 +37,21 @@ export type InputData = {
     message?:string,
     enQuiryDate?:Timestamp | undefined
   }
+  export type trackFitnessData = {
+    id?:string,
+    date?:string
+    wakeupTime?:string,
+    stepCount?:string,
+    colories?:number,
+    workout?:string
+  }
 
   export type tableData = {
     tableColumns: tableInnerColumn[],
     children?: ReactNode
+  }
+  export type iconTextCardData = {
+    title:string,
+    subTitle:string,
+    icon?:StaticImageData
   }

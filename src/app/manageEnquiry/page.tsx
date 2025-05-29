@@ -1,4 +1,5 @@
 'use client'
+import { useEffect, useState } from 'react';
 import CommonTable from '@/components/Table/Table';
 import { toast } from "sonner";
 import {
@@ -9,7 +10,6 @@ import moment from 'moment';
 import { manageEnquiryData } from '@/helper/type';
 import { useFetchCollection } from '@/hook/useFetchCollection';
 import SideMenuLayout from '@/layouts/SideMenuLayout';
-import { useEffect, useState } from 'react';
 import { useDeleteData } from '@/hook/useDeleteData';
 
 
