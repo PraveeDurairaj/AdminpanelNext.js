@@ -13,10 +13,11 @@ export type InputData = {
     labelItem?:ReactNode,
     id?: string,
     type?: string,
-    value?: string,
+    value?: string | number,
     placeholder?: string,
     readOnly?:boolean,
     name?:string,
+    required?:boolean,
     onChangeFunction?:(e:React.ChangeEvent<HTMLInputElement>)=>void,
   }
 
@@ -40,10 +41,15 @@ export type InputData = {
   export type trackFitnessData = {
     id?:string,
     date?:string
-    wakeupTime?:string,
-    stepCount?:string,
+    day?:string,
     colories?:number,
-    workout?:string
+    weight?:number
+  }
+   export type trackFitnessFormData = {
+    day?:number,
+    maintenanceCal?:number,
+    consumedCal?:number,
+    weight?:number
   }
 
   export type tableData = {

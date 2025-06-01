@@ -14,6 +14,10 @@ import { useDeleteData } from '@/hook/useDeleteData';
 
 
 const tableHeadingsData = [
+   {
+    title: 'No',
+    style: 'min-w-[120px]'
+  },
   {
     title: 'Date',
     style: 'min-w-[120px]'

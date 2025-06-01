@@ -27,23 +27,23 @@ const tractFitnessDashboard = [
 ]
 const tableHeadingsData = [
     {
+        title: 'No',
+        style: 'min-w-[120px]'
+    },
+    {
         title: 'Date',
         style: 'min-w-[120px]'
     },
     {
-        title: 'wakeup time',
+        title: 'Day',
         style: 'min-w-[120px]'
-    },
-    {
-        title: 'Step count',
-        style: 'min-w-[150px]'
     },
     {
         title: 'Colories',
         style: 'min-w-[200px]'
     },
     {
-        title: 'workout',
+        title: 'weight',
         style: 'min-w-[120px]'
     }
 ]
@@ -51,16 +51,13 @@ const tableHeadingsData = [
 const trackFitnessTableData = [
     {
         date: '29/05/2025',
-        wakeupTime: '06:55 AM',
-        stepCount: '2000',
+        day: '1',
         colories: 1800,
-        workout: 'multi Class'
+        weight: 45
     }
-
-
 ]
+export default function Home() {
 
-const page = () => {
     useEffect(() => {
         setTBoday(trackFitnessTableData)
 
@@ -68,6 +65,9 @@ const page = () => {
     const [tbody, setTBoday] = useState<trackFitnessData[]>()
     return (
         <SideMenuLayout title={'Track Fitness'}>
+            <div className='flex justify-end mb-[20px]'>
+                <a className='link-text text-[18px]' href='/trackFitness/trackFitnessForm'>Add</a>
+            </div>
             <div className='flex  w-full gap-[20px] mb-[30px] flex-col sm:flex-row'>
                 {
                     tbody ? tractFitnessDashboard?.map((data, key) => {
@@ -95,10 +95,9 @@ const page = () => {
                         <TableRow key={key}>
                             <TableCell>{key + 1}</TableCell>
                             <TableCell>{data?.date}</TableCell>
-                            {data?.wakeupTime && <TableCell>{data?.wakeupTime}</TableCell>}
-                            {data?.stepCount && <TableCell>{data?.stepCount}</TableCell>}
-                            {data?.colories && <TableCell>{data?.colories}</TableCell>}
-                            <TableCell>{data?.workout ? data?.workout : '-'}</TableCell>
+                            <TableCell>{data?.day}</TableCell>
+                             <TableCell>{data?.colories ?? '-' }</TableCell>
+                            <TableCell>{data?.weight ?? '-'}</TableCell>
                         </TableRow>
                     )
                 })}
@@ -107,4 +106,4 @@ const page = () => {
     )
 }
 
-export default page
+
