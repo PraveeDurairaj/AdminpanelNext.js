@@ -42,8 +42,10 @@ export type InputData = {
     id?:string,
     date?:string
     day?:string,
-    colories?:number,
+    maintenanceCal?:number,
+    consumedCal?:number,
     weight?:number
+    fitnessDate?:Timestamp | undefined
   }
    export type trackFitnessFormData = {
     day?:number,

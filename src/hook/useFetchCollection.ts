@@ -2,15 +2,14 @@
 import { useState, useEffect } from 'react';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase/config';
-import { manageEnquiryData } from '@/helper/type';
-type featchCollectionData = {
+
+
+export const useFetchCollection = <T,>({ fbCollection, orderData, orderMethod }: {
     fbCollection: string,
     orderData?: string,
     orderMethod?: 'asc' | 'desc'
-}
-
-export const useFetchCollection = ({ fbCollection, orderData, orderMethod }: featchCollectionData) => {
-    const [documents, setDocuments] = useState<manageEnquiryData[]>();
+}): T[] => {
+    const [documents, setDocuments] = useState<T[]>([]);
 
     useEffect(() => {
         const userCollection = collection(db, fbCollection); // get collection from firestore
@@ -20,7 +19,7 @@ export const useFetchCollection = ({ fbCollection, orderData, orderMethod }: fea
         }
 
         const unsub = onSnapshot(orderDataQuery ?? userCollection, (snapshot) => {
-            const res = snapshot.docs.map((docs) => ({ ...docs.data(), id: docs.id })) //docs.data() this isthe firebases method is return the actual data
+            const res = snapshot.docs.map((docs) => ({ ...docs.data() as T, id: docs.id })) //docs.data() this isthe firebases method is return the actual data
             setDocuments(res)
         })
         return () => unsub()

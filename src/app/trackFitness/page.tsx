@@ -5,6 +5,8 @@ import {
     TableCell,
     TableRow,
 } from "@/components/ui/table";
+import moment from 'moment';
+import { useFetchCollection } from '@/hook/useFetchCollection';
 import SideMenuLayout from '@/layouts/SideMenuLayout';
 import weightIcon from '../../../public/weight.png';
 import IconWithTextCard from '@/components/ui/IconWithTextCard';
@@ -48,21 +50,13 @@ const tableHeadingsData = [
     }
 ]
 
-const trackFitnessTableData = [
-    {
-        date: '29/05/2025',
-        day: '1',
-        colories: 1800,
-        weight: 45
-    }
-]
 export default function Home() {
-
-    useEffect(() => {
-        setTBoday(trackFitnessTableData)
-
-    }, [])
     const [tbody, setTBoday] = useState<trackFitnessData[]>()
+    const documents = useFetchCollection<trackFitnessData>({ fbCollection: 'trackFitness', orderData: 'day', orderMethod: 'desc' })
+    useEffect(() => {
+        if (documents) setTBoday(documents)
+    }, [documents])
+
     return (
         <SideMenuLayout title={'Track Fitness'}>
             <div className='flex justify-end mb-[20px]'>
@@ -91,13 +85,15 @@ export default function Home() {
             </div>
             <CommonTable tableColumns={tableHeadingsData}>
                 {tbody?.map((data, key) => {
+                    const date = data?.fitnessDate?.toDate()
+                    const fitnessDate = moment(date).format('DD-MM-YYYY')
                     return (
                         <TableRow key={key}>
                             <TableCell>{key + 1}</TableCell>
-                            <TableCell>{data?.date}</TableCell>
+                            <TableCell>{fitnessDate ?? '-'}</TableCell>
                             <TableCell>{data?.day}</TableCell>
-                             <TableCell>{data?.colories ?? '-' }</TableCell>
-                            <TableCell>{data?.weight ?? '-'}</TableCell>
+                            <TableCell>{data?.consumedCal && data?.maintenanceCal ? data?.consumedCal + ' / ' + data?.maintenanceCal + ' Cal' : '-'}</TableCell>
+                            <TableCell>{data?.weight ? data?.weight + 'Kg' : '-'}</TableCell>
                         </TableRow>
                     )
                 })}

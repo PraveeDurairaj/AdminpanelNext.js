@@ -42,7 +42,7 @@ const tableHeadingsData = [
 
 export default function Home() {
   const [tbody, setTBoday] = useState<manageEnquiryData[]>()
-  const documents = useFetchCollection({ fbCollection: 'manageEnquiry', orderData: 'enQuiryDate', orderMethod: 'desc' })
+  const documents = useFetchCollection<manageEnquiryData>({ fbCollection: 'manageEnquiry', orderData: 'enQuiryDate', orderMethod: 'desc' })
   const { deleteState, setDeleteState, deleteData } = useDeleteData('manageEnquiry');
 
   useEffect(() => {
