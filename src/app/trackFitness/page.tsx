@@ -87,12 +87,13 @@ export default function Home() {
                 {tbody?.map((data, key) => {
                     const date = data?.createdDate?.toDate()
                     const fitnessDate = moment(date).format('DD-MM-YYYY')
+                  
                     return (
                         <TableRow key={key}>
                             <TableCell>{key + 1}</TableCell>
                             <TableCell>{fitnessDate ?? '-'}</TableCell>
                             <TableCell>{data?.day}</TableCell>
-                            <TableCell>{data?.consumedCal && data?.maintenanceCal ? data?.consumedCal + ' / ' + data?.maintenanceCal + ' Cal' : '-'}</TableCell>
+                            <TableCell>{data?.consumedCal && data?.maintenanceCal ? <><span className={data?.consumedCal > data?.maintenanceCal ? 'text-green-600' :'text-red-600'}>{data?.consumedCal}</span> / <span>{ data?.maintenanceCal} Cal</span> </> : '-'}</TableCell>
                             <TableCell>{data?.weight ? data?.weight + 'Kg' : '-'}</TableCell>
                         </TableRow>
                     )

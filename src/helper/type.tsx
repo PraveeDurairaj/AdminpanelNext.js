@@ -18,6 +18,7 @@ export type InputData = {
     readOnly?:boolean,
     name?:string,
     required?:boolean,
+    note?:string,
     onChangeFunction?:(e:React.ChangeEvent<HTMLInputElement>)=>void,
   }
 
@@ -51,7 +52,7 @@ export type InputData = {
     day?:number | string,
     maintenanceCal?:number | string,
     consumedCal?:number | string,
-    weight?:number | string
+    weight?:number 
   }
 
   export type tableData = {

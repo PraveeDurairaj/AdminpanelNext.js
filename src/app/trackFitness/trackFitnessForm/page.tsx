@@ -11,8 +11,15 @@ import { useAddDos } from '@/hook/useAddData';
 
 const TrackFitnessForm = () => {
     const [loading, setLoading] = useState(true)
-    const [trackFitnessdata, setTrackFitnessdata] = useState<trackFitnessFormData>();
+    const [trackFitnessdata, setTrackFitnessdata] = useState<trackFitnessFormData>(
+        {
+            day: '',
+            consumedCal: '',
+            weight: 0
+        }
+    );
     const { added, setAdded, addData } = useAddDos('trackFitness')
+    let isMaintanceCal = 0;
     useEffect(() => {
         setLoading(false)
         if (added) {
@@ -23,33 +30,36 @@ const TrackFitnessForm = () => {
         }
 
     }, [loading, added, setAdded])
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setTrackFitnessdata(prev => ({
             ...prev, [name]: value,
         }))
     }
+    if (trackFitnessdata?.weight) {
+        isMaintanceCal = Math.round(trackFitnessdata?.weight * 2.2 * 14 + 500)
+    }
     const handleSubmit = () => {
-        if (trackFitnessdata?.consumedCal && trackFitnessdata?.day && trackFitnessdata?.maintenanceCal && trackFitnessdata?.weight) {
-            addData<trackFitnessFormData>(trackFitnessdata)
+        if (trackFitnessdata?.consumedCal && trackFitnessdata?.day  && trackFitnessdata?.weight) {
+            addData<trackFitnessFormData>({...trackFitnessdata,maintenanceCal:isMaintanceCal})
             setTrackFitnessdata(
                 {
                     day: '',
-                    maintenanceCal: '',
                     consumedCal: '',
-                    weight: ''
+                    weight: 0
                 }
             )
         }
 
     }
+
     const handleCancel = () => {
         setTrackFitnessdata(
             {
                 day: '',
-                maintenanceCal: '',
                 consumedCal: '',
-                weight: ''
+                weight: 0
             }
         )
     }
@@ -71,15 +81,6 @@ const TrackFitnessForm = () => {
                         required
                     />
                     <Inputgroup
-                        id="maintenanceCal"
-                        type="number"
-                        name='maintenanceCal'
-                        value={trackFitnessdata?.maintenanceCal}
-                        onChangeFunction={handleChange}
-                        placeholder="Enter maintenance calories"
-                        label='Maintenance calories'
-                    />
-                    <Inputgroup
                         id="consumedCal"
                         type="number"
                         name='consumedCal'
@@ -96,6 +97,16 @@ const TrackFitnessForm = () => {
                         onChangeFunction={handleChange}
                         placeholder="Enter weight"
                         label='Weight'
+                    />
+                       <Inputgroup
+                        id="maintenanceCal"
+                        type="number"
+                        name='maintenanceCal'
+                        value={isMaintanceCal}
+                        placeholder="Enter maintenance calories"
+                        label='Maintenance calories'
+                        readOnly={true}
+                        note={'Maintenance Calories = weight * 2.2 * 14 + 500. this is auto calculated based on your weight.'}
                     />
                 </div>
                 <div className='flex justify-end gap-3.5 pt-3 border-t border-[var(--border-primary)] mt-6'>

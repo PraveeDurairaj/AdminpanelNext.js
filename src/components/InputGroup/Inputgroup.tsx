@@ -3,7 +3,7 @@ import { InputData } from '@/helper/type';
 import { Input } from '../ui/input';
 
 
-const Inputgroup = ({ label, id, type, value, placeholder, readOnly, name, labelItem, onChangeFunction }: InputData) => {
+const Inputgroup = ({ label, id, type, value, placeholder, readOnly, name, labelItem,note, onChangeFunction }: InputData) => {
     return (
         <div>
             {label && <label htmlFor={id} className="mb-1.5 flex gap-2 items-center text-[16px] font-[500]">
@@ -19,6 +19,7 @@ const Inputgroup = ({ label, id, type, value, placeholder, readOnly, name, label
                 readOnly={readOnly}
                 name={name}
             />
+           {note && <p className='text-[14px] text-gray-400 mt-[6px]'>{note}</p> } 
         </div>
     )
 }
