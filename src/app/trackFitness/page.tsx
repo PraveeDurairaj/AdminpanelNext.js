@@ -52,7 +52,7 @@ const tableHeadingsData = [
 
 export default function Home() {
     const [tbody, setTBoday] = useState<trackFitnessData[]>()
-    const documents = useFetchCollection<trackFitnessData>({ fbCollection: 'trackFitness', orderData: 'day', orderMethod: 'desc' })
+    const documents = useFetchCollection<trackFitnessData>({ fbCollection: 'trackFitness',orderData: 'day', orderMethod: 'desc' })
     useEffect(() => {
         if (documents) setTBoday(documents)
     }, [documents])
@@ -85,7 +85,7 @@ export default function Home() {
             </div>
             <CommonTable tableColumns={tableHeadingsData}>
                 {tbody?.map((data, key) => {
-                    const date = data?.fitnessDate?.toDate()
+                    const date = data?.createdDate?.toDate()
                     const fitnessDate = moment(date).format('DD-MM-YYYY')
                     return (
                         <TableRow key={key}>

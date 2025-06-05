@@ -45,13 +45,13 @@ export type InputData = {
     maintenanceCal?:number,
     consumedCal?:number,
     weight?:number
-    fitnessDate?:Timestamp | undefined
+    createdDate?:Timestamp | undefined
   }
    export type trackFitnessFormData = {
-    day?:number,
-    maintenanceCal?:number,
-    consumedCal?:number,
-    weight?:number
+    day?:number | string,
+    maintenanceCal?:number | string,
+    consumedCal?:number | string,
+    weight?:number | string
   }
 
   export type tableData = {

@@ -4,7 +4,7 @@ import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase/config';
 
 
-export const useFetchCollection = <T,>({ fbCollection, orderData, orderMethod }: {
+export const useFetchCollection = <T>({ fbCollection, orderData, orderMethod }: {
     fbCollection: string,
     orderData?: string,
     orderMethod?: 'asc' | 'desc'

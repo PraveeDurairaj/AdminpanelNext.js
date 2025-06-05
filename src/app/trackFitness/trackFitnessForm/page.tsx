@@ -1,41 +1,55 @@
 'use client'
 import React, { useEffect, useState } from 'react';
+import { toast } from "sonner";
 import Inputgroup from '@/components/InputGroup/Inputgroup';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { trackFitnessFormData } from '@/helper/type';
 import SideMenuLayout from '@/layouts/SideMenuLayout';
+import { useAddDos } from '@/hook/useAddData';
 
 
 const TrackFitnessForm = () => {
     const [loading, setLoading] = useState(true)
     const [trackFitnessdata, setTrackFitnessdata] = useState<trackFitnessFormData>();
+    const { added, setAdded, addData } = useAddDos('trackFitness')
+    useEffect(() => {
+        setLoading(false)
+        if (added) {
+            toast("SEO form submitted successfully!", {
+                description: "Your data has been saved and processed",
+            });
+            setAdded(false)
+        }
+
+    }, [loading, added, setAdded])
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setTrackFitnessdata(prev => ({
             ...prev, [name]: value,
         }))
     }
-    useEffect(() => {
-        setLoading(false)
-    }, [loading])
     const handleSubmit = () => {
-        setTrackFitnessdata(
-            {
-                day: 0,
-                maintenanceCal: 0,
-                consumedCal: 0,
-                weight: 0
-            }
-        )
+        if (trackFitnessdata?.consumedCal && trackFitnessdata?.day && trackFitnessdata?.maintenanceCal && trackFitnessdata?.weight) {
+            addData<trackFitnessFormData>(trackFitnessdata)
+            setTrackFitnessdata(
+                {
+                    day: '',
+                    maintenanceCal: '',
+                    consumedCal: '',
+                    weight: ''
+                }
+            )
+        }
+
     }
     const handleCancel = () => {
         setTrackFitnessdata(
             {
-                day: 0,
-                maintenanceCal: 0,
-                consumedCal: 0,
-                weight: 0
+                day: '',
+                maintenanceCal: '',
+                consumedCal: '',
+                weight: ''
             }
         )
     }
