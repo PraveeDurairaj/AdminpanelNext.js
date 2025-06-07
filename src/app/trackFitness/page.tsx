@@ -14,19 +14,9 @@ import caloriesIcon from '../../../public/calories.png';
 import { Skeleton } from '@/components/ui/skeleton';
 import CommonTable from '@/components/Table/Table';
 import { trackFitnessData } from '@/helper/type';
+import { TableSkeleton } from '@/components/Skeletons/skeleton';
 
-const tractFitnessDashboard = [
-    {
-        title: '46 Kg',
-        subTitle: 'Weight',
-        icon: weightIcon
-    },
-    {
-        title: '1500 cal',
-        subTitle: 'colories',
-        icon: caloriesIcon
-    }
-]
+
 const tableHeadingsData = [
     {
         title: 'No',
@@ -45,17 +35,41 @@ const tableHeadingsData = [
         style: 'min-w-[200px]'
     },
     {
-        title: 'weight',
+        title: 'Weight',
+        style: 'min-w-[120px]'
+    },
+      {
+        title: 'Backlog Colories',
         style: 'min-w-[120px]'
     }
 ]
 
 export default function Home() {
     const [tbody, setTBoday] = useState<trackFitnessData[]>()
-    const documents = useFetchCollection<trackFitnessData>({ fbCollection: 'trackFitness',orderData: 'day', orderMethod: 'desc' })
+    const [loading ,setLoading] = useState<boolean>(true)
+    const [dashBoardData,setDashBoarddata] = useState<trackFitnessData>()
+    const documents = useFetchCollection<trackFitnessData>({ fbCollection: 'trackFitness', orderData: 'day', orderMethod: 'desc' })
     useEffect(() => {
-        if (documents) setTBoday(documents)
+        if (documents) {
+            setTBoday(documents)
+            setDashBoarddata(documents?.[0])
+            setLoading(false)
+        }
     }, [documents])
+    
+const tractFitnessDashboard = [
+    {
+        title: dashBoardData?.weight + ' Kg',
+        subTitle: 'Weight',
+        icon: weightIcon
+    },
+    {
+        title: dashBoardData?.maintenanceCal + ' Cal',
+        subTitle: 'colories',
+        icon: caloriesIcon
+    }
+]
+
 
     return (
         <SideMenuLayout title={'Track Fitness'}>
@@ -64,41 +78,45 @@ export default function Home() {
             </div>
             <div className='flex  w-full gap-[20px] mb-[30px] flex-col sm:flex-row'>
                 {
-                    tbody ? tractFitnessDashboard?.map((data, key) => {
+                    dashBoardData?.weight ? tractFitnessDashboard?.map((data,key) => {
                         return (
                             <IconWithTextCard
-                                key={key}
+                                key={key + 1}
                                 title={data?.title}
                                 subTitle={data?.subTitle}
                                 icon={data?.icon}
                             />
                         )
                     }) :
-                        tractFitnessDashboard?.map((data) => {
+                        tractFitnessDashboard?.map((data,key) => {
                             return (
-                                <Skeleton key={data?.title} className='w-full h-[120px] rounded-[12px]' />
+                                <Skeleton key={key} className='w-full h-[120px] rounded-[12px]' />
                             )
                         })
                 }
 
 
-            </div>
-            <CommonTable tableColumns={tableHeadingsData}>
-                {tbody?.map((data, key) => {
-                    const date = data?.createdDate?.toDate()
-                    const fitnessDate = moment(date).format('DD-MM-YYYY')
-                  
-                    return (
-                        <TableRow key={key}>
-                            <TableCell>{key + 1}</TableCell>
-                            <TableCell>{fitnessDate ?? '-'}</TableCell>
-                            <TableCell>{data?.day}</TableCell>
-                            <TableCell>{data?.consumedCal && data?.maintenanceCal ? <><span className={data?.consumedCal > data?.maintenanceCal ? 'text-green-600' :'text-red-600'}>{data?.consumedCal}</span> / <span>{ data?.maintenanceCal} Cal</span> </> : '-'}</TableCell>
-                            <TableCell>{data?.weight ? data?.weight + 'Kg' : '-'}</TableCell>
-                        </TableRow>
-                    )
-                })}
-            </CommonTable>
+            </div>{
+                tbody ?
+                    <CommonTable tableColumns={tableHeadingsData}>
+                        {tbody?.map((data, key) => {
+                            const date = data?.createdDate?.toDate()
+                            const fitnessDate = moment(date).format('DD-MM-YYYY')
+
+                            return (
+                                <TableRow key={key}>
+                                    <TableCell>{key + 1}</TableCell>
+                                    <TableCell>{fitnessDate ?? '-'}</TableCell>
+                                    <TableCell>{data?.day}</TableCell>
+                                    <TableCell>{data?.consumedCal && data?.maintenanceCal ? <><span className={data?.consumedCal > data?.maintenanceCal ? 'text-green-600' : 'text-red-600'}>{data?.consumedCal}</span> / <span>{data?.maintenanceCal} Cal</span> </> : '-'}</TableCell>
+                                    <TableCell>{data?.weight ? data?.weight + 'Kg' : '-'}</TableCell>
+                                    <TableCell>{data?.backlogCal &&  data?.backlogCal  > 0 ?<span className='text-red-600'>{ data?.backlogCal + ' Cal'}</span> : '-'}</TableCell>
+                                </TableRow>
+                            )
+                        })}
+                    </CommonTable> :
+                    <TableSkeleton />
+                }
         </SideMenuLayout>
     )
 }

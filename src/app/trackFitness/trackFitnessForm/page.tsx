@@ -10,20 +10,16 @@ import { useAddDos } from '@/hook/useAddData';
 
 
 const TrackFitnessForm = () => {
-    const [loading, setLoading] = useState(true)
-    const [trackFitnessdata, setTrackFitnessdata] = useState<trackFitnessFormData>(
-        {
-            day: '',
-            consumedCal: '',
-            weight: 0
-        }
-    );
+    const [loading, setLoading] = useState<Boolean>(true)
+    const [trackFitnessdata, setTrackFitnessdata] = useState<trackFitnessFormData>({ day: null, consumedCal: null, weight: null });
     const { added, setAdded, addData } = useAddDos('trackFitness')
     let isMaintanceCal = 0;
+    let isBacklog = 0;
+
     useEffect(() => {
         setLoading(false)
         if (added) {
-            toast("SEO form submitted successfully!", {
+            toast("Track fitness form submitted successfully!", {
                 description: "Your data has been saved and processed",
             });
             setAdded(false)
@@ -37,17 +33,18 @@ const TrackFitnessForm = () => {
             ...prev, [name]: value,
         }))
     }
-    if (trackFitnessdata?.weight) {
-        isMaintanceCal = Math.round(trackFitnessdata?.weight * 2.2 * 14 + 500)
-    }
     const handleSubmit = () => {
-        if (trackFitnessdata?.consumedCal && trackFitnessdata?.day  && trackFitnessdata?.weight) {
-            addData<trackFitnessFormData>({...trackFitnessdata,maintenanceCal:isMaintanceCal})
+        if (trackFitnessdata?.consumedCal && trackFitnessdata?.day && trackFitnessdata?.weight) {
+            if(isMaintanceCal >  trackFitnessdata?.consumedCal) {
+                 isBacklog = isMaintanceCal - trackFitnessdata?.consumedCal
+            }
+            
+            addData<trackFitnessFormData>({ ...trackFitnessdata, maintenanceCal: isMaintanceCal,backlogCal:isBacklog })
             setTrackFitnessdata(
                 {
-                    day: '',
-                    consumedCal: '',
-                    weight: 0
+                    day: null,
+                    consumedCal: null,
+                    weight: null
                 }
             )
         }
@@ -57,12 +54,16 @@ const TrackFitnessForm = () => {
     const handleCancel = () => {
         setTrackFitnessdata(
             {
-                day: '',
-                consumedCal: '',
-                weight: 0
+                day: null,
+                consumedCal: null,
+                weight: null
             }
         )
     }
+    if (trackFitnessdata?.weight) {
+        isMaintanceCal = Math.round(trackFitnessdata?.weight * 2.2 * 14 + 500)
+    }
+
     const renderForm = () => {
         return (
             <>
@@ -98,7 +99,7 @@ const TrackFitnessForm = () => {
                         placeholder="Enter weight"
                         label='Weight'
                     />
-                       <Inputgroup
+                    <Inputgroup
                         id="maintenanceCal"
                         type="number"
                         name='maintenanceCal'

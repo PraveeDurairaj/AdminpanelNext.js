@@ -8,12 +8,11 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { tableData } from '@/helper/type';
-import { TableSkeleton } from '../Skeletons/skeleton';
 
 const CommonTable = ({ tableColumns, children }: tableData) => {
 
     return (
-        (children ?
+        
             <div className='rounded-[10px] w-full overflow-y-hidden overflow-x-auto'>
                 <Table>
                     <TableHeader>
@@ -27,7 +26,7 @@ const CommonTable = ({ tableColumns, children }: tableData) => {
                         {children}
                     </TableBody>
                 </Table>
-            </div> : <TableSkeleton />)
+            </div> 
     )
 }
 

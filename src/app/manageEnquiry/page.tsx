@@ -11,10 +11,11 @@ import { manageEnquiryData } from '@/helper/type';
 import { useFetchCollection } from '@/hook/useFetchCollection';
 import SideMenuLayout from '@/layouts/SideMenuLayout';
 import { useDeleteData } from '@/hook/useDeleteData';
+import { TableSkeleton } from '@/components/Skeletons/skeleton';
 
 
 const tableHeadingsData = [
-   {
+  {
     title: 'No',
     style: 'min-w-[120px]'
   },
@@ -55,7 +56,7 @@ export default function Home() {
 
   return (
     <SideMenuLayout title={'Manage Enquiry'}>
-      <CommonTable tableColumns={tableHeadingsData}>
+      {tbody ? <CommonTable tableColumns={tableHeadingsData}>
         {tbody?.map((data, key) => {
           const date = data?.enQuiryDate?.toDate()
           const enQuiryDate = moment(date).format('DD-MM-YYYY')
@@ -70,7 +71,7 @@ export default function Home() {
             </TableRow>
           )
         })}
-      </CommonTable>
+      </CommonTable> : <TableSkeleton />}
     </SideMenuLayout>
 
   );
