@@ -46,14 +46,12 @@ const tableHeadingsData = [
 
 export default function Home() {
     const [tbody, setTBoday] = useState<trackFitnessData[]>()
-    const [loading ,setLoading] = useState<boolean>(true)
     const [dashBoardData,setDashBoarddata] = useState<trackFitnessData>()
     const documents = useFetchCollection<trackFitnessData>({ fbCollection: 'trackFitness', orderData: 'day', orderMethod: 'desc' })
     useEffect(() => {
         if (documents) {
             setTBoday(documents)
             setDashBoarddata(documents?.[0])
-            setLoading(false)
         }
     }, [documents])
     

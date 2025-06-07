@@ -2,7 +2,6 @@ import React from 'react';
 import { cn } from "@/lib/utils";
 import Image from 'next/image';
 import seo from '../../../public/seo.png';
-import blog from '../../../public/blog.png';
 import enquiry from '../../../public/enquiry.png';
 import tractFitness from '../../../public/trackFitness.png';
 const sideMenusData = [

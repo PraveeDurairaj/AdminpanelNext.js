@@ -10,7 +10,7 @@ import { useAddDos } from '@/hook/useAddData';
 
 
 const TrackFitnessForm = () => {
-    const [loading, setLoading] = useState<Boolean>(true)
+    const [loading, setLoading] = useState<boolean>(true)
     const [trackFitnessdata, setTrackFitnessdata] = useState<trackFitnessFormData>({ day: null, consumedCal: null, weight: null });
     const { added, setAdded, addData } = useAddDos('trackFitness')
     let isMaintanceCal = 0;
