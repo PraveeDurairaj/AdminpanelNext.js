@@ -1,0 +1,46 @@
+  .editorBox {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      min-height: 250px;
+      border-radius: 0px 4px 4px 4px;
+  }
+
+  .common_rich_editor h1 {
+      font-size: 28px;
+      line-height: 42px;
+      font-weight: 600;
+  }
+
+  .common_rich_editor h2 {
+      font-size: 24px;
+      line-height: 36px;
+      font-weight: 500;
+  }
+
+  .common_rich_editor code {
+      display: inline-block;
+      padding: 10px 15px;
+      border-radius: 6px;
+      background-color: black;
+      color: green;
+  }
+
+  .common_rich_editor .ProseMirror:focus {
+      border: 0 !important;
+      outline: 0 !important;
+  }
+
+  .common_rich_editor_menu_flex button {
+      color: black;
+      background: white;
+      font-size: 12px;
+      padding: 5px;
+      border-radius: 3px;
+  }
+
+  .common_rich_editor_menu_flex button:hover,
+  .common_rich_editor_menu_flex button:focus,
+  .common_rich_editor_menu_flex .is-active {
+    background: var(--theme-bg);
+    color: white;
+  }
