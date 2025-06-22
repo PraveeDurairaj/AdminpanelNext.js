@@ -8,6 +8,7 @@
 
 :root {
   --theme-bg:#3874ff;
+  --white-bg:#fff;
   --side-bar-primary:#fff;
   --side-bar-foreground:#212121;
   --side-bar-nav-active:var(--theme-bg);
@@ -18,6 +19,7 @@
   --sleleton-bg:#ebebf1;
   --bg-primary:#000;
   --bg-secondray:#f5f7fa;
+  --foreground-primary:#212121;
   --white-text-foreground:#fff;
   --gray-text-foreground:#8d8b8b;
 }

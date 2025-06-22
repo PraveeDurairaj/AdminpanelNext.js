@@ -1,23 +1,35 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, {  useMemo } from 'react'
 import { useEditor, useEditorState, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
+import StarterKit from '@tiptap/starter-kit';
+import { useDebounce } from '@/hook/useDebounce';
+
 
 
 interface Props {
-  updateContent: string
-  isSubmit?: boolean
-  setNotesData: React.Dispatch<React.SetStateAction<string>>
+  content: string
+  setContent: React.Dispatch<React.SetStateAction<string>>
 }
-export default function TiptapEditor({ updateContent, isSubmit, setNotesData}: Props) {
+export default function TiptapEditor({ content, setContent }: Props) {
+
+  const extensions = useMemo(() => [
+    StarterKit.configure({ heading: { levels: [1, 2, 3, 4] } }),
+  ], [])
+
+   const debouncedSearch = useDebounce((html: string) => {
+    setContent(html)
+  }, 300)
+
+
   const editor = useEditor({
-    extensions: [
-      StarterKit.configure({ heading: { levels: [1, 2] } })
-    ],
-    content: '',
+    extensions,
+    content: content,
     autofocus: true,
     immediatelyRender: true,
-    shouldRerenderOnTransaction: false, 
+    shouldRerenderOnTransaction: false,
+    onUpdate: ({ editor }) => {
+      debouncedSearch(editor.getHTML())
+    },
   })
 
   const active = useEditorState({
@@ -32,20 +44,15 @@ export default function TiptapEditor({ updateContent, isSubmit, setNotesData}: P
     }),
   })
 
-  useEffect(() => {
-    if (isSubmit) {
-      setNotesData(editor.getHTML())
-    }
-    if (updateContent) {
-      editor.commands.setContent(updateContent)
-    }
-  }, [editor, isSubmit, setNotesData, updateContent])
+
+ 
 
   if (!editor) return null
 
+
   return (
     <div>
-      <div className="inline-flex gap-2 bg-gray-200 rounded-t p-[5px]  common_rich_editor_menu_flex button">
+      <div className="inline-flex gap-2 bg-gray-200 rounded-t p-[5px]  common_rich_editor_menu_flex">
         <button
           className={active.bold ? 'is-active' : ''}
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -62,6 +69,14 @@ export default function TiptapEditor({ updateContent, isSubmit, setNotesData}: P
           className={active.h2 ? 'is-active' : ''}
           onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         >H2</button>
+        <button
+          className={active.h1 ? 'is-active' : ''}
+          onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+        >H3</button>
+        <button
+          className={active.h2 ? 'is-active' : ''}
+          onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
+        >H4</button>
         <button
           className={active.bulletList ? 'is-active' : ''}
           onClick={() => editor.chain().focus().toggleBulletList().run()}

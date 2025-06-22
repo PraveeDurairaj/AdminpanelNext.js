@@ -47,14 +47,14 @@ export type trackFitnessData = {
   consumedCal?: number,
   weight?: number
   createdDate?: Timestamp | undefined,
-  backlogCal?:number
+  backlogCal?: number
 }
 export type trackFitnessFormData = {
   day?: number | null,
   maintenanceCal?: number | null,
   consumedCal?: number | null,
   weight?: number | null,
-  backlogCal?:number | null
+  backlogCal?: number | null
 }
 
 export type tableData = {
@@ -65,4 +65,10 @@ export type iconTextCardData = {
   title: string | number | undefined,
   subTitle: string,
   icon?: StaticImageData
+}
+
+export type addTopicsdata = {
+  categroy?: string | null,
+  topicTitle?: string | null,
+  notesContent?: string | null
 }

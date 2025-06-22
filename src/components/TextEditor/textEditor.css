@@ -1,10 +1,13 @@
   .editorBox {
-      border: 1px solid #ccc;
+      border: 1px solid var( --border-secondray);
       padding: 1rem;
       min-height: 250px;
       border-radius: 0px 4px 4px 4px;
+      color: var(--foreground-primary);
   }
-
+.editorBox > div{
+   min-height: 250px;
+}
   .common_rich_editor h1 {
       font-size: 28px;
       line-height: 42px;
@@ -15,6 +18,21 @@
       font-size: 24px;
       line-height: 36px;
       font-weight: 500;
+  }
+   .common_rich_editor h3 {
+      font-size: 20px;
+      line-height: 30px;
+      font-weight: 500;
+  }
+
+  .common_rich_editor h4 {
+      font-size: 18px;
+      line-height: 26px;
+      font-weight: 500;
+  }
+  .common_rich_editor p {
+    font-size: 14px;
+    margin-bottom: 6px;
   }
 
   .common_rich_editor code {
@@ -29,18 +47,38 @@
       border: 0 !important;
       outline: 0 !important;
   }
+  .ProseMirror{
+min-height:250px ;
+  }
 
   .common_rich_editor_menu_flex button {
-      color: black;
+      color: var(--foreground-primary);
       background: white;
       font-size: 12px;
       padding: 5px;
       border-radius: 3px;
+      flex-wrap: wrap;
   }
 
   .common_rich_editor_menu_flex button:hover,
   .common_rich_editor_menu_flex button:focus,
   .common_rich_editor_menu_flex .is-active {
-    background: var(--theme-bg);
-    color: white;
+      background: var(--theme-bg);
+      color: white;
+  }
+
+  .common_rich_editor ul li {
+      list-style: disc;
+      font-size: 18px;
+  }
+
+  .common_rich_editor ol li {
+      list-style: decimal;
+      font-size: 18px;
+
+  }
+
+  .common_rich_editor ul,
+  .common_rich_editor ol {
+      padding-left: 20px;
   }
