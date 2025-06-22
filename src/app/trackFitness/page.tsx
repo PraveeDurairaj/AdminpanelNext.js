@@ -27,10 +27,6 @@ const tableHeadingsData = [
         style: 'min-w-[120px]'
     },
     {
-        title: 'Day',
-        style: 'min-w-[120px]'
-    },
-    {
         title: 'Colories',
         style: 'min-w-[200px]'
     },
@@ -40,14 +36,14 @@ const tableHeadingsData = [
     },
       {
         title: 'Backlog Colories',
-        style: 'min-w-[120px]'
+        style: 'min-w-[200px]'
     }
 ]
 
 export default function Home() {
     const [tbody, setTBoday] = useState<trackFitnessData[]>()
     const [dashBoardData,setDashBoarddata] = useState<trackFitnessData>()
-    const documents = useFetchCollection<trackFitnessData>({ fbCollection: 'trackFitness', orderData: 'day', orderMethod: 'desc' })
+    const documents = useFetchCollection<trackFitnessData>({ fbCollection: 'trackFitness', orderData: 'createdDate', orderMethod: 'desc' })
     useEffect(() => {
         if (documents) {
             setTBoday(documents)
@@ -105,7 +101,6 @@ const tractFitnessDashboard = [
                                 <TableRow key={key}>
                                     <TableCell>{key + 1}</TableCell>
                                     <TableCell>{fitnessDate ?? '-'}</TableCell>
-                                    <TableCell>{data?.day}</TableCell>
                                     <TableCell>{data?.consumedCal && data?.maintenanceCal ? <><span className={data?.consumedCal > data?.maintenanceCal ? 'text-green-600' : 'text-red-600'}>{data?.consumedCal}</span> / <span>{data?.maintenanceCal} Cal</span> </> : '-'}</TableCell>
                                     <TableCell>{data?.weight ? data?.weight + 'Kg' : '-'}</TableCell>
                                     <TableCell>{data?.backlogCal &&  data?.backlogCal  > 0 ?<span className='text-red-600'>{ data?.backlogCal + ' Cal'}</span> : '-'}</TableCell>
