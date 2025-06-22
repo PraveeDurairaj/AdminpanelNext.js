@@ -11,7 +11,7 @@ import { useAddDos } from '@/hook/useAddData';
 
 const TrackFitnessForm = () => {
     const [loading, setLoading] = useState<boolean>(true)
-    const [trackFitnessdata, setTrackFitnessdata] = useState<trackFitnessFormData>({ day: null, consumedCal: null, weight: null });
+    const [trackFitnessdata, setTrackFitnessdata] = useState<trackFitnessFormData>({  consumedCal: null, weight: null });
     const { added, setAdded, addData } = useAddDos('trackFitness')
     let isMaintanceCal = 0;
     let isBacklog = 0;
@@ -19,8 +19,9 @@ const TrackFitnessForm = () => {
     useEffect(() => {
         setLoading(false)
         if (added) {
-            toast("Track fitness form submitted successfully!", {
+            toast.success("Track fitness form submitted successfully!", {
                 description: "Your data has been saved and processed",
+                position:'top-right'
             });
             setAdded(false)
         }
@@ -34,7 +35,7 @@ const TrackFitnessForm = () => {
         }))
     }
     const handleSubmit = () => {
-        if (trackFitnessdata?.consumedCal && trackFitnessdata?.day && trackFitnessdata?.weight) {
+        if (trackFitnessdata?.consumedCal && trackFitnessdata?.weight) {
             if(isMaintanceCal >  trackFitnessdata?.consumedCal) {
                  isBacklog = isMaintanceCal - trackFitnessdata?.consumedCal
             }
@@ -42,7 +43,6 @@ const TrackFitnessForm = () => {
             addData<trackFitnessFormData>({ ...trackFitnessdata, maintenanceCal: isMaintanceCal,backlogCal:isBacklog })
             setTrackFitnessdata(
                 {
-                    day: null,
                     consumedCal: null,
                     weight: null
                 }
@@ -54,7 +54,6 @@ const TrackFitnessForm = () => {
     const handleCancel = () => {
         setTrackFitnessdata(
             {
-                day: null,
                 consumedCal: null,
                 weight: null
             }
@@ -71,16 +70,6 @@ const TrackFitnessForm = () => {
                     <a className='link-text text-[18px]' href='/trackFitness'>Go back</a>
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                    <Inputgroup
-                        id="day"
-                        type="number"
-                        name='day'
-                        value={trackFitnessdata?.day}
-                        onChangeFunction={handleChange}
-                        placeholder="Enter day count"
-                        label='Day'
-                        required
-                    />
                     <Inputgroup
                         id="consumedCal"
                         type="number"
@@ -121,7 +110,7 @@ const TrackFitnessForm = () => {
         return (
             <>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                    {[1, 2, 3, 4]?.map((data) => {
+                    {[1, 2, 3]?.map((data) => {
                         return (
                             <div key={data}>
                                 <Skeleton className='w-[150px] h-[20px] rounded-[4px] mb-1.5' />
