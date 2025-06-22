@@ -71,6 +71,7 @@ export default function LearningsForm() {
 
         )
     }
+
     useEffect(() => {
         setLoading(false)
         if (added) {
