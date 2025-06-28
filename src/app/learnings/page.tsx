@@ -1,19 +1,55 @@
 'use client'
-import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react';
+import ModalPopup from '@/components/ModalPopup/ModalPopup';
 import SideMenuLayout from '@/layouts/SideMenuLayout';
-import { useRouter } from 'next/navigation';
+import { AddTopicForm } from '@/components/Learnings/AddTopicForm';
+import IconWithTextCard from '@/components/ui/IconWithTextCard';
+import { useFetchCollection } from '@/hook/useFetchCollection';
+import { addTopicsdata } from '@/helper/type';
+import { Skeleton } from '@/components/ui/skeleton';
+
+
+
 
 export default function Learnings() {
-    const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true)
+  const [topis, setAddTopics] = useState<addTopicsdata[]>()
+  const documents = useFetchCollection<addTopicsdata>({ fbCollection: 'learnings', orderData: 'createdDate', orderMethod: 'desc' })
+  useEffect(() => {
+    if (documents) {
+      setAddTopics(documents)
+      setLoading(false)
+    }
 
+  },[documents])
   return (
     <SideMenuLayout title={'Learnings'}>
-     {/* <div className='common_rich_editor' dangerouslySetInnerHTML={{__html:notes}}>
+      {/* <div className='common_rich_editor' dangerouslySetInnerHTML={{__html:notes}}>
       </div> */}
-      <div className='flex justify-end'>
-        <Button onClick={()=>{router.push('/learning/form')}}>Add Notes</Button>
+      <div className='flex justify-end mb-5'>
+        <ModalPopup
+          title={'Add topics'}
+          buttonText={'Add'}
+          content={<AddTopicForm handlePopup={setOpen} />}
+          isOpen={open}
+          setIsOpen={setOpen}
+        />
       </div>
-      <h1 className='flex items-center justify-center text-3xl bg-blue-300 p-[15px] h-[500px]  my-auto rounded-[10px] animate-pulse'>work in progress</h1>
+
+      {loading ? <Skeleton className='w-full h-[300px]' /> :
+        <div className='grid grid-cols-1 sm:grid-cols-2  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3.5'>
+          {topis?.map((data, key) => {
+            return (
+              <IconWithTextCard key={key}
+                title={data?.topicTitle ?? ''}
+                subTitle={data?.topicDescription ?? ''}
+                className={'border border-[var(--border-primary)] shadow-none'}
+              />
+            )
+          })} </div>
+      }
+
     </SideMenuLayout>
   );
 }

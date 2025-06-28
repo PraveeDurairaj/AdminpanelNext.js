@@ -1,17 +1,17 @@
 import React from 'react';
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogContent,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import { modalPopup } from '@/helper/type';
 
-const ModalPopup = ({ title, buttonText, content }: modalPopup) => {
+const ModalPopup = ({ title, buttonText, content,isOpen,setIsOpen }: modalPopup) => {
     return (
-        <Dialog>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
                 {buttonText && <Button>{buttonText}</Button>}
             </DialogTrigger>

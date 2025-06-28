@@ -26,7 +26,9 @@ export type modalPopup = {
   title: string,
   buttonText?: string,
   linkText?: string,
-  content: ReactNode
+  content: ReactNode,
+  isOpen?:boolean,
+  setIsOpen?:React.Dispatch<React.SetStateAction<boolean>>
 }
 
 type tableInnerColumn = {
@@ -64,11 +66,14 @@ export type tableData = {
 export type iconTextCardData = {
   title: string | number | undefined,
   subTitle: string,
-  icon?: StaticImageData
+  icon?: StaticImageData,
+  className?:string
 }
 
 export type addTopicsdata = {
   categroy?: string | null,
   topicTitle?: string | null,
+  topicDescription?: string | null,
+  notesTitle?: string | null,
   notesContent?: string | null
 }

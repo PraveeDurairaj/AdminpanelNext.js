@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic'
+import dynamic from 'next/dynamic';
 import { toast } from "sonner";
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -15,7 +15,7 @@ const TiptapEditor = dynamic(() => import('@/components/TextEditor/TextEditor'),
 })
 
 export default function LearningsForm() {
-    const [addTopicsdata, setAddTopicsdata] = useState<addTopicsdata>({ categroy: null, topicTitle: null });
+    const [addTopicsdata, setAddTopicsdata] = useState<addTopicsdata>({ categroy: null, notesTitle: null });
     const [content, setContent] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(true)
     const { added, setAdded, addData } = useAddDos('learnings')
@@ -29,10 +29,10 @@ export default function LearningsForm() {
     }
 
     const handleSubmit = () => {
-        if (addTopicsdata?.categroy && addTopicsdata?.topicTitle && content) {
+        if (addTopicsdata?.categroy && addTopicsdata?.notesTitle && content) {
             addData<addTopicsdata>({ ...addTopicsdata, notesContent: content })
             setAddTopicsdata({
-                categroy: null, topicTitle: null
+                categroy: null, notesTitle: null
             })
             setContent('')
         }
@@ -46,7 +46,6 @@ export default function LearningsForm() {
     const handleCancel = () => {
         router.back();
     }
-
     const renderSkeleton = () => {
         return (
             <div className='grid grid-cols-1  gap-4 max-w-[800px]'>
@@ -101,7 +100,7 @@ export default function LearningsForm() {
                         id="topicTitle"
                         type="text"
                         name='topicTitle'
-                        value={addTopicsdata?.topicTitle}
+                        value={addTopicsdata?.notesTitle}
                         onChangeFunction={handleChange}
                         placeholder="Title"
                         label='Title'
