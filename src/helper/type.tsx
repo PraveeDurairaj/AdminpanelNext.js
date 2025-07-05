@@ -69,11 +69,23 @@ export type iconTextCardData = {
   icon?: StaticImageData,
   className?:string
 }
+type topicsubContent = {
+   categroy?: string | null,
+   notesTitle?: string | null,
+  notesContent?: string | null,
+}
 
 export type addTopicsdata = {
+  id?:string,
   categroy?: string | null,
   topicTitle?: string | null,
   topicDescription?: string | null,
   notesTitle?: string | null,
-  notesContent?: string | null
+  notesContent?: string | null,
+  topicsubContent?:topicsubContent[]
+}
+
+export type  viewTopic = {
+  topicDescription?: string,
+  topicTitle?:string
 }

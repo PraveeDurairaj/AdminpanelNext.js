@@ -7,6 +7,7 @@ import IconWithTextCard from '@/components/ui/IconWithTextCard';
 import { useFetchCollection } from '@/hook/useFetchCollection';
 import { addTopicsdata } from '@/helper/type';
 import { Skeleton } from '@/components/ui/skeleton';
+import Link from 'next/link';
 
 
 
@@ -41,11 +42,14 @@ export default function Learnings() {
         <div className='grid grid-cols-1 sm:grid-cols-2  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3.5'>
           {topis?.map((data, key) => {
             return (
-              <IconWithTextCard key={key}
+              <Link key={key} href={`learnings/view/${data?.id}`}>
+                <IconWithTextCard 
                 title={data?.topicTitle ?? ''}
                 subTitle={data?.topicDescription ?? ''}
                 className={'border border-[var(--border-primary)] shadow-none'}
               />
+              </Link>
+            
             )
           })} </div>
       }
