@@ -33,7 +33,7 @@ const InputGroup = ({ label, id, type, value, placeholder, readOnly, name, label
 const SeoForm = () => {
   const { data,fetchData } = useGetData('site data');
   const [isEdit, setEdit] = useState<boolean>(false);
-  const { update, setUpdate, updateData } = useUpdateData('site data')
+  const { isUpdated, updateData } = useUpdateData<SeoData>('site data')
   const [seoData, setSeoData] = useState<SeoData>({
     metaTitle: '',
     MetaDescription: '',
@@ -42,19 +42,15 @@ const SeoForm = () => {
   });
 
   useEffect(() => {
-    if (data) {
-      setSeoData(data)
-    } else {
+  
       fetchData('KgLZiVEA1X1JFFf3Bl6h')
-    }
-    if (update) {
+    if (isUpdated) {
       toast("SEO form submitted successfully!", {
         description: "Your data has been saved and processed",
       });
-      setUpdate(false)
       fetchData('KgLZiVEA1X1JFFf3Bl6h')
     }
-  }, [data, update])
+  }, [data, isUpdated])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -72,7 +68,6 @@ const SeoForm = () => {
   
   const handleCancel = () => {
     setEdit(false)
-    if (data) setSeoData(data)
   }
 
   const renderForm = () => {
@@ -143,8 +138,8 @@ const SeoForm = () => {
         {data ? renderForm() : renderSkeleton()}
       </div>
       {isEdit && <div className='flex justify-end gap-3.5 pt-3 border-t border-[var(--border-primary)] mt-6'>
-        <Button variant={'outline'} onClick={handleCancel}>cancel</Button>
         <Button onClick={handleSubmit}>save</Button>
+        <Button variant={'outline'} onClick={handleCancel}>cancel</Button>
       </div>}
       {
       !data && <div className='flex justify-end gap-3.5 mt-6' >

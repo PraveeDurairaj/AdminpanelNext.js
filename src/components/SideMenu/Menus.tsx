@@ -4,6 +4,8 @@ import Image from 'next/image';
 import seo from '../../../public/seo.png';
 import enquiry from '../../../public/enquiry.png';
 import tractFitness from '../../../public/trackFitness.png';
+import learnings from '../../../public/learnings.png';
+
 const sideMenusData = [
     {
         id: 1,
@@ -29,9 +31,14 @@ const sideMenusData = [
         icon: tractFitness,
         url: '/trackFitness',
         subUrl:'/trackFitness/trackFitnessForm'
+    },
+     {
+        id: 5,
+        text: 'Learnings',
+        icon: learnings,
+        url: '/learnings',
+        subUrl:'/learnings/form'
     }
-    
-
 ]
 
 const Menus = ({path}:{path: string}) => {

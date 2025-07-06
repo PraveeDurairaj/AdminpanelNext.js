@@ -1,11 +1,14 @@
-import {useState } from "react"
-import { db } from "@/firebase/config";
-import { getDoc, doc } from "firebase/firestore";
-import { SeoData } from "@/helper/type";
+import { useState } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/firebase/config';  // Adjust based on your project structure
 
+interface UseGetDataReturn<T> {
+  data: T | undefined;
+  fetchData: (id: string) => Promise<void>;
+}
 
-export const useGetData = (fbcollection: string) => {
-  const [data, setData] = useState<SeoData | null>(null)
+export const useGetData = <T>(fbcollection: string): UseGetDataReturn<T> => {
+  const [data, setData] = useState<T | undefined>(undefined);
 
   const fetchData = async (id: string): Promise<void> => {
     try {
@@ -13,14 +16,15 @@ export const useGetData = (fbcollection: string) => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        const dataRes = docSnap.data() as SeoData;
+        const dataRes = docSnap.data() as T;
         setData(dataRes);
       } else {
-        console.warn("No such document!");
+        console.warn('No such document!');
       }
     } catch (error) {
-      console.error("Error fetching document:", error);
+      console.error('Error fetching document:', error);
     }
   };
-  return { data, fetchData }
-}
+
+  return { data, fetchData };
+};

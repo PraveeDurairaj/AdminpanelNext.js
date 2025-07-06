@@ -26,7 +26,9 @@ export type modalPopup = {
   title: string,
   buttonText?: string,
   linkText?: string,
-  content: ReactNode
+  content: ReactNode,
+  isOpen?:boolean,
+  setIsOpen?:React.Dispatch<React.SetStateAction<boolean>>
 }
 
 type tableInnerColumn = {
@@ -50,17 +52,15 @@ export type trackFitnessData = {
   backlogCal?:number,
    createdAt: {
     seconds: number | undefined
-    
   },
   dateWithMonth:string
-
 }
 export type trackFitnessFormData = {
   day?: number | null,
   maintenanceCal?: number | null,
   consumedCal?: number | null,
   weight?: number | null,
-  backlogCal?:number | null
+  backlogCal?: number | null
 }
 
 export type tableData = {
@@ -70,5 +70,29 @@ export type tableData = {
 export type iconTextCardData = {
   title: string | number | undefined,
   subTitle: string,
-  icon?: StaticImageData
+  icon?: StaticImageData,
+  className?:string
+}
+type topicsubContent = {
+   categroy?: string | null,
+   notesTitle?: string | null,
+  notesContent?: string | null
+}
+
+export type addTopicsdata = {
+  id?:string,
+  categroy?: string | null,
+  topicTitle?: string | null,
+  topicDescription?: string | null,
+  notesTitle?: string | null,
+  notesContent?: string | null,
+  topicsubContent?:topicsubContent[]
+}
+export type updateTopicsdata = {
+      topicsubContent?:topicsubContent[]
+}
+
+export type  viewTopic = {
+  topicDescription?: string,
+  topicTitle?:string
 }
