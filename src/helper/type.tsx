@@ -47,7 +47,13 @@ export type trackFitnessData = {
   consumedCal?: number,
   weight?: number
   createdDate?: Timestamp | undefined,
-  backlogCal?:number
+  backlogCal?:number,
+   createdAt: {
+    seconds: number | undefined
+    
+  },
+  dateWithMonth:string
+
 }
 export type trackFitnessFormData = {
   day?: number | null,

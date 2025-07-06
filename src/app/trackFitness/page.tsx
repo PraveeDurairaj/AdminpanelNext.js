@@ -34,7 +34,7 @@ const tableHeadingsData = [
         title: 'Weight',
         style: 'min-w-[120px]'
     },
-      {
+    {
         title: 'Backlog Colories',
         style: 'min-w-[200px]'
     }
@@ -42,27 +42,39 @@ const tableHeadingsData = [
 
 export default function Home() {
     const [tbody, setTBoday] = useState<trackFitnessData[]>()
-    const [dashBoardData,setDashBoarddata] = useState<trackFitnessData>()
+    const [dashBoardData, setDashBoarddata] = useState<trackFitnessData>()
     const documents = useFetchCollection<trackFitnessData>({ fbCollection: 'trackFitness', orderData: 'createdDate', orderMethod: 'desc' })
     useEffect(() => {
         if (documents) {
-            setTBoday(documents)
             setDashBoarddata(documents?.[0])
+            documents.forEach(item => {
+                if (!item.createdDate?.seconds) return; 
+
+                const date = new Date(item?.createdDate?.seconds * 1000); 
+                const month = date.getMonth() + 1;  
+                const year = date.getFullYear();
+                const dateWithMonth = `${month}-${year}`;
+                item.dateWithMonth= dateWithMonth
+            });
+            setTBoday(documents)
         }
+
     }, [documents])
-    
-const tractFitnessDashboard = [
-    {
-        title: dashBoardData?.weight + ' Kg',
-        subTitle: 'Weight',
-        icon: weightIcon
-    },
-    {
-        title: dashBoardData?.maintenanceCal + ' Cal',
-        subTitle: 'colories',
-        icon: caloriesIcon
-    }
-]
+
+
+    const tractFitnessDashboard = [
+        {
+            title: dashBoardData?.weight + ' Kg',
+            subTitle: 'Weight',
+            icon: weightIcon
+        },
+        {
+            title: dashBoardData?.maintenanceCal + ' Cal',
+            subTitle: 'colories',
+            icon: caloriesIcon
+        }
+    ]
+
 
 
     return (
@@ -72,7 +84,7 @@ const tractFitnessDashboard = [
             </div>
             <div className='flex  w-full gap-[20px] mb-[30px] flex-col sm:flex-row'>
                 {
-                    dashBoardData?.weight ? tractFitnessDashboard?.map((data,key) => {
+                    dashBoardData?.weight ? tractFitnessDashboard?.map((data, key) => {
                         return (
                             <IconWithTextCard
                                 key={key + 1}
@@ -82,7 +94,7 @@ const tractFitnessDashboard = [
                             />
                         )
                     }) :
-                        tractFitnessDashboard?.map((data,key) => {
+                        tractFitnessDashboard?.map((data, key) => {
                             return (
                                 <Skeleton key={key} className='w-full h-[120px] rounded-[12px]' />
                             )
@@ -103,13 +115,13 @@ const tractFitnessDashboard = [
                                     <TableCell>{fitnessDate ?? '-'}</TableCell>
                                     <TableCell>{data?.consumedCal && data?.maintenanceCal ? <><span className={data?.consumedCal > data?.maintenanceCal ? 'text-green-600' : 'text-red-600'}>{data?.consumedCal}</span> / <span>{data?.maintenanceCal} Cal</span> </> : '-'}</TableCell>
                                     <TableCell>{data?.weight ? data?.weight + 'Kg' : '-'}</TableCell>
-                                    <TableCell>{data?.backlogCal &&  data?.backlogCal  > 0 ?<span className='text-red-600'>{ data?.backlogCal + ' Cal'}</span> : '-'}</TableCell>
+                                    <TableCell>{data?.backlogCal && data?.backlogCal > 0 ? <span className='text-red-600'>{data?.backlogCal + ' Cal'}</span> : '-'}</TableCell>
                                 </TableRow>
                             )
                         })}
                     </CommonTable> :
                     <TableSkeleton />
-                }
+            }
         </SideMenuLayout>
     )
 }
