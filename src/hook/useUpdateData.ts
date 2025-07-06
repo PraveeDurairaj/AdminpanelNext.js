@@ -7,7 +7,10 @@ interface UseUpdateDataReturn<T> {
   updateData: (id: string, data: T) => Promise<void>;
 }
 
-export const useUpdateData = <T>(fbcollection: string): UseUpdateDataReturn<T> => {
+// Constrain T to be any object (dynamic but must be an object)
+export const useUpdateData = <T extends Record<string, any>>(
+  fbcollection: string
+): UseUpdateDataReturn<T> => {
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
 
   const updateData = async (id: string, data: T): Promise<void> => {

@@ -72,7 +72,7 @@ export type iconTextCardData = {
 type topicsubContent = {
    categroy?: string | null,
    notesTitle?: string | null,
-  notesContent?: string | null,
+  notesContent?: string | null
 }
 
 export type addTopicsdata = {
@@ -83,6 +83,9 @@ export type addTopicsdata = {
   notesTitle?: string | null,
   notesContent?: string | null,
   topicsubContent?:topicsubContent[]
+}
+export type updateTopicsdata = {
+      topicsubContent?:topicsubContent[]
 }
 
 export type  viewTopic = {

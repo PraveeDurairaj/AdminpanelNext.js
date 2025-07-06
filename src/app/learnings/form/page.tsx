@@ -2,40 +2,42 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
+// components
 import { toast } from "sonner";
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Select, SelectContent, SelectTrigger, SelectItem, SelectValue } from '@/components/ui/select';
 import Inputgroup from '@/components/InputGroup/Inputgroup';
 import SideMenuLayout from '@/layouts/SideMenuLayout';
-import { Select, SelectContent, SelectTrigger, SelectItem, SelectValue } from '@/components/ui/select';
+// helper
 import { addTopicsdata } from '@/helper/type';
-import { useAddDos } from '@/hook/useAddData';
 import { useFetchCollection } from '@/hook/useFetchCollection';
 import { useUpdateData } from '@/hook/useUpdateData';
+import { useGetData } from '@/hook/useGetData';
 
 const TiptapEditor = dynamic(() => import('@/components/TextEditor/TextEditor'), {
     ssr: false,
 })
 
 export default function LearningsForm() {
+    // state values
     const [addTopicsdata, setAddTopicsdata] = useState<addTopicsdata>({ categroy: 'select', notesTitle: null });
     const [content, setContent] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(true)
-    const { added, setAdded, addData } = useAddDos('learnings')
-     const router = useRouter();
+    const router = useRouter();
+
     const documents = useFetchCollection<addTopicsdata>({ fbCollection: 'learnings', orderData: 'createdDate', orderMethod: 'desc' })
-   const { isUpdated, updateData } = useUpdateData('learnings')    
+    const { isUpdated, updateData } = useUpdateData<addTopicsdata>('learnings')
+    const { data, fetchData } = useGetData<addTopicsdata>('learnings');
 
 
 
     const handleSubmit = () => {
-        if (addTopicsdata?.categroy && addTopicsdata?.notesTitle && content) {
-            addData<addTopicsdata>({ ...addTopicsdata, notesContent: content })
-            updateData<addTopicsdata>(addTopicsdata?.categroy,{topicsubContent:[{ ...addTopicsdata, notesContent: content }]})
-
-            setAddTopicsdata({
-                categroy: null, notesTitle: null
-            })
+        if (addTopicsdata?.categroy && addTopicsdata?.notesTitle && content && data) {
+              const previousContent = data?.topicsubContent || [];
+              console.log()
+            updateData(addTopicsdata?.categroy, { topicsubContent: [...previousContent,{ ...addTopicsdata, notesContent: content }] })
+            setAddTopicsdata({categroy: null, notesTitle: null})
             setContent('')
         }
         else {
@@ -82,14 +84,17 @@ export default function LearningsForm() {
 
     useEffect(() => {
         setLoading(false)
-        if (added) {
+        if (isUpdated) {
             toast.success("Learnings Notes form submitted successfully!", {
                 description: "Your notes has been saved",
+                 position: 'top-right'
             });
-            setAdded(false)
             router.back();
         }
-    }, [loading, added, setAdded, content])
+        if (addTopicsdata.categroy) {
+            fetchData(addTopicsdata?.categroy)
+        }
+    }, [loading, isUpdated, content,addTopicsdata])
 
 
     return (
