@@ -88,11 +88,10 @@ export type addTopicsdata = {
   notesContent?: string | null,
   topicsubContent?:topicsubContent[]
 }
-export type updateTopicsdata = {
-      topicsubContent?:topicsubContent[]
-}
+
 
 export type  viewTopic = {
   topicDescription?: string,
-  topicTitle?:string
+  topicTitle?:string,
+  topicsubContent?:topicsubContent[]
 }

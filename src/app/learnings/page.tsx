@@ -26,8 +26,6 @@ export default function Learnings() {
   },[documents])
   return (
     <SideMenuLayout title={'Learnings'}>
-      {/* <div className='common_rich_editor' dangerouslySetInnerHTML={{__html:notes}}>
-      </div> */}
       <div className='flex justify-end mb-5'>
         <ModalPopup
           title={'Add topics'}
